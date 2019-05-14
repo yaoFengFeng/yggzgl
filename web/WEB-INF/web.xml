@@ -5,10 +5,11 @@
          version="3.1">
     <servlet>
         <servlet-name>SayHello</servlet-name>
-        <servlet-class>SayHello</servlet-class>
+        <servlet-class>servlet.SayHello</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SayHello</servlet-name>
-        <url-pattern>/SayHello</url-pattern>
+        <url-pattern>/servlet.SayHello</url-pattern>
     </servlet-mapping>
+
 </web-app>
