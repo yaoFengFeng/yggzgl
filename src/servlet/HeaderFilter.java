@@ -1,12 +1,10 @@
 package servlet;
-
-
 import java.io.IOException;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 
-
+//暂时没用的类
 public class HeaderFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) resp;

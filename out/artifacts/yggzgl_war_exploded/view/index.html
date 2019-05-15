@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>员工工资管理系统</title>
+    <title>员工工资管理系统-登录</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -52,12 +52,14 @@
                                    psd:this.password
                                }
                            }).then(function(res){
-                               if(res == 0){
+                               console.log(res['data']);
+                               let msg = res['data'];
+                               if(msg == 0){
                                    alert('登录超时');
-                               }else if(res == -1){
+                               }else if(msg == -1){
                                    alert('用户名不存在或者密码错误');
                                }else{
-                                alert('登录成功');
+                                    window.location.href = "http://localhost:8080/HomeServlet"
                                }
                            })
                         }
