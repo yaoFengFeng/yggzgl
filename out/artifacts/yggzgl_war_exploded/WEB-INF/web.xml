@@ -11,8 +11,17 @@
         <servlet-name>SayHello</servlet-name>
         <url-pattern>/servlet.SayHello</url-pattern>
     </servlet-mapping>
-    
-    <!--<welcome-file-list>-->
-        <!--<welcome-file>../../view/index.html</welcome-file>-->
-    <!--</welcome-file-list>-->
+
+    <welcome-file-list>
+        <welcome-file>view/index.html</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>HeaderFilter</filter-name>
+        <filter-class>servlet.HeaderFilter</filter-class><!--你过滤器的包 -->
+    </filter>
+    <filter-mapping>
+        <filter-name>HeaderFilter</filter-name>
+        <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
+    </filter-mapping>
 </web-app>
