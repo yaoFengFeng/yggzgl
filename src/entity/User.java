@@ -3,10 +3,26 @@ package entity;
 import java.util.Date;
 
 public class User {
-    private String id,username,psd,sex,phone,titlt,address,note;
-    private Date birthday;
+    private String id,username,psd,sex,phone,titlt,address,note,department;
+    private Date birthday,inTheTime;
     private int serviceTime; //工龄
-    private int departmentId;
+    private String status;
+
+    public Date getInTheTime() {
+        return inTheTime;
+    }
+
+    public void setInTheTime(Date inTheTime) {
+        this.inTheTime = inTheTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;
@@ -88,11 +104,11 @@ public class User {
         this.serviceTime = serviceTime;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

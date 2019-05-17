@@ -1,34 +1,66 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="public/css/manageStaff.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/manageStaff.js"></script>
 </head>
+
 <body>
     <div class="top">
         员工管理
     </div>
     <div class="search">
-        <select name=""class="departmentSelect">
-            <option value="-1">--选择部门--</option>
+        <select name="" class="departmentSelect" @change="change">
+            <option v-for="(option,index) in options" v-text="option.text"  ></option>
         </select>
+        <button class="importBtn">导入员工信息 </button>
+        <p class="conditions">
+            <span class="name">姓名：</span>
+            <input type="text">
+            <span class="id">工号：</span>
+            <input type="text">
+            <button>搜索</button>
+        </p>
+    </div>
+    <div class="content">
+        <div class="operation">
+            <button>添加</button>
+            <button class="outputBtn">导出数据</button>
+        </div>
+        <div class="myTable">
+            <table class="stafftable">
+                <thead>
+                    <tr>
+                        <th v-for="th in tableTitle" v-text='th'></th>
+                    </tr>
+                </thead>
+                <tr v-for='td in tableData'>
+                    <td v-for="key in tableDataKeys">{{td[key]}} </td>
+                    <td class="tdOperation">
+                        <button class="updateBtn">修改</button>
+                        <button class="deleteBtn">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mask">
+        <div class="importImp">
+            <div class="impTitle">导入员工信息</div>
+            <button>选择文件</button>
+            <button>开始导入</button>
+            <p class="myFileName"></p>
+            <input type="file" id="uploadFile" style="display:none" value="看不见我" onchange="importf(this)">
+        </div>
     </div>
 </body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    我是员工管理页面
-</body>
->>>>>>> 1ea5ead3abb3d6e4bada2369d806a1d533239490
+
 </html>

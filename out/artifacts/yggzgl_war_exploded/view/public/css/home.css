@@ -1,15 +1,15 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
 }
-.top{
+
+.top {
     width: 100%;
     height: 60px;
-    background-color:#ffffff
-
+    background-color: #ffffff
 }
 
-.top .topLeft{
+.top .topLeft {
     float: left;
     width: 200px;
     height: 100%;
@@ -17,7 +17,7 @@
     border-right: 0px solid gray;
 }
 
-.top .topLeft span{
+.top .topLeft span {
     display: block;
     height: 100%;
     line-height: 60px;
@@ -26,30 +26,30 @@
     font-size: 25px;
 }
 
-.top .topRight{
+.top .topRight {
     float: right;
     margin-right: 15px;
     height: 100%;
     width: 200px;
 }
 
-.top .topRight .loginMsg{
+.top .topRight .loginMsg {
     display: inline-block;
     height: 100%;
     line-height: 45px;
-    color:#757575;
+    color: #757575;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     margin: 5px;
     cursor: pointer;
 }
 
-.main{
+.main {
     width: 100%;
     height: 100%;
 }
 
-.main .navLeft{
+.main .navLeft {
     height: 100%;
     background: #ffffff;
     width: 200px;
@@ -75,7 +75,7 @@
     border-bottom: 0px solid black;
     font-size: 17px;
     transition: all 0.3s
-        /*变化时间0.3秒*/
+    /*变化时间0.3秒*/
 }
 
 .my_ui li:nth-child(7) {
@@ -87,18 +87,17 @@
     height: 80px !important;
     text-align: center !important;
     line-height: 80px !important;
-    
 }
 
-.iframe{
+.iframe {
     padding: 21px;
     margin-left: 200px;
     height: 100%;
-    width: 100%;
+    width: 100% - 50px;
 }
 
-.iframe iframe{
+.iframe iframe {
     height: 100%;
     width: 100%;
-
+    border: none;
 }
