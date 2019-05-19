@@ -11,7 +11,7 @@ function downloadExl(json, type) {
     }
 
     var tmpdata = [];
-    json.map((v,i) => keyMap.map((k,j) => Object.assign({}, {
+    json.map((v, i) => keyMap.map((k, j) => Object.assign({}, {
         v: v[k],
         position: (j > 25 ? getCharCol(j) : String.fromCharCode(65 + j)) + (i + 1)
     }))).reduce((prev, next) => prev.concat(next)).forEach((v, i) => tmpdata[v.position] = {
@@ -32,8 +32,7 @@ function downloadExl(json, type) {
     };
 
     //创建二进制对象写入转换好的字节流
-    tmpDown = new Blob([s2ab(XLSX.write(tmpWB,
-        {bookType: (type == undefined ? 'xlsx':type),bookSST: false, type: 'binary'}//这里的数据是用来定义导出的格式类型
+    tmpDown = new Blob([s2ab(XLSX.write(tmpWB, { bookType: (type == undefined ? 'xlsx' : type), bookSST: false, type: 'binary' } //这里的数据是用来定义导出的格式类型
     ))], {
         type: ""
     });
@@ -77,20 +76,20 @@ function getCharCol(n) {
  3.readAsDataURL(file)：将文件读取为Data URL
  4.readAsText(file, [encoding])：将文件读取为文本，encoding缺省值为'UTF-8'
  */
-var wb;//读取完成的数据
+var wb; //读取完成的数据
 var rABS = false; //是否将文件读取为二进制字符串
-var p = document.getElementsByClassName('myFileName')[0];
-function importf(obj) {//导入
+// var p = document.getElementsByClassName('myFileName')[0];
+function importf(obj) { //导入
     if (!obj.files) {
         return;
     }
-    p.innerHTML = "已选择：" + obj.files[0].name;
+    // p.innerHTML = "已选择：" + obj.files[0].name;
     var f = obj.files[0];
     var reader = new FileReader();
-    reader.onload = function (e) {
+    reader.onload = function(e) {
         var data = e.target.result;
         if (rABS) {
-            wb = XLSX.read(btoa(fixdata(data)), {//手动转化
+            wb = XLSX.read(btoa(fixdata(data)), { //手动转化
                 type: 'base64'
             });
         } else {
@@ -107,6 +106,7 @@ function importf(obj) {//导入
         reader.readAsBinaryString(f);
     }
 }
+
 function fixdata(data) { //文件流转BinaryString
     var o = "",
         l = 0,

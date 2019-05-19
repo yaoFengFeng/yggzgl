@@ -64,7 +64,7 @@ public class User {
         this.phone = phone;
     }
 
-    public String getTitlt() {
+    public String getTitle() {
         return titlt;
     }
 

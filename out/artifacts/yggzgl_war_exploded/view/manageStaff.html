@@ -9,58 +9,67 @@
     <link rel="stylesheet" href="public/css/manageStaff.css">
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
+    <script src="public/js/xlsx.full.min.js"></script>
     <script src="public/js/manageStaff.js"></script>
+    <script src="public/js/common.js"></script>
 </head>
 
 <body>
-    <div class="top">
-        员工管理
-    </div>
-    <div class="search">
-        <select name="" class="departmentSelect" @change="change">
-            <option v-for="(option,index) in options" v-text="option.text"  ></option>
-        </select>
-        <button class="importBtn">导入员工信息 </button>
-        <p class="conditions">
-            <span class="name">姓名：</span>
-            <input type="text">
-            <span class="id">工号：</span>
-            <input type="text">
-            <button>搜索</button>
-        </p>
-    </div>
-    <div class="content">
-        <div class="operation">
-            <button>添加</button>
-            <button class="outputBtn">导出数据</button>
+    <div class="all">
+        <div class="top">
+            员工管理
         </div>
-        <div class="myTable">
-            <table class="stafftable">
-                <thead>
-                    <tr>
-                        <th v-for="th in tableTitle" v-text='th'></th>
+        <div class="search">
+            <select name="" class="departmentSelect" @change="change">
+                        <option v-for="(option,index) in options" v-text="option.text"  ></option>
+                    </select>
+            <button class="importBtn" @click="showM()">导入员工信息 </button>
+            <p class="conditions">
+                <span class="name">姓名：</span>
+                <input type="text">
+                <span class="id">工号：</span>
+                <input type="text">
+                <button>搜索</button>
+            </p>
+
+            <!-- 弹出层 导入员工信息 -->
+            <div class="mask" v-if="showSelf" @click="unshow()">
+                <div class="importImp" @click.stop>
+                    <!-- @cliak.stop 阻止事件冒泡-->
+                    <div class="impTitle">导入员工信息</div>
+                    <button @click="chouseExcel">选择文件</button>
+                    <button @click="startImport">开始导入</button>
+                    <p>文件路径:</p>
+                    <p v-text='filename'></p>
+                    <input type="file" ref="filElem" style="display:none" @change='getFileName'>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="operation">
+                <button>添加</button>
+                <button class="outputBtn">导出数据</button>
+            </div>
+            <div class="myTable">
+                <table class="stafftable">
+                    <thead>
+                        <tr>
+                            <th v-for="th in tableDataKeys" v-text='th.val'></th>
+                            <th> 操作</th>
+                        </tr>
+                    </thead>
+                    <tr v-for='td in tableData'>
+                        <td v-for="key in tableDataKeys">{{td[key.key]}} </td>
+                        <td class="tdOperation">
+                            <button class="updateBtn">修改</button>
+                            <button class="deleteBtn">删除</button>
+                        </td>
                     </tr>
-                </thead>
-                <tr v-for='td in tableData'>
-                    <td v-for="key in tableDataKeys">{{td[key]}} </td>
-                    <td class="tdOperation">
-                        <button class="updateBtn">修改</button>
-                        <button class="deleteBtn">删除</button>
-                    </td>
-                </tr>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 
-    <div class="mask">
-        <div class="importImp">
-            <div class="impTitle">导入员工信息</div>
-            <button>选择文件</button>
-            <button>开始导入</button>
-            <p class="myFileName"></p>
-            <input type="file" id="uploadFile" style="display:none" value="看不见我" onchange="importf(this)">
-        </div>
-    </div>
 </body>
 
 </html>

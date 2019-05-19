@@ -1,8 +1,6 @@
 package servlet;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class MySQLConnection {
@@ -38,4 +36,5 @@ public class MySQLConnection {
         }
         return null;
     }
+
 }
