@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/personal.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div class="c-content" id="root">
+        <div class="left-card">
+            <div class="left-content">
+                <p style="margin:auto;width:100px;height:100px;background-color: lightcoral"></p>
+                <p class="left-name" id="left-name">{{newname}}</p>
+                <p class="left-font">{{newdescribe}}</p>
+                <div class="left-information">
+                    <p><span><i class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{newemail}}</span></p>
+                    <p><span><i class="fas fa-award"></i>&nbsp;&nbsp;&nbsp;&nbsp;某某部门 · Java 工程师</span></p>
+                    <p><span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{newaddress}}</span></p>
+                </div>
+
+                <hr style="margin-top:50px;margin-bottom:10px;">
+                <div>
+                    <p>标签</p>
+                    <p>
+                        <div class="left-title">
+                            <span>开朗乐观</span>
+                            <span>开朗乐观</span>
+                            <span>开朗乐观</span>
+                            <span>开朗乐观</span>
+                            <span>开朗乐观</span>
+                            <span>乐观</span>
+                            <span>开朗</span>
+
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="right-card">
+            <div class="right-content">
+                <div class="right-tab">
+                    <div class="tab-content">
+                        <div class="tab-items">
+                            <span>基本设置</span>
+                            
+                        </div>
+                                                  
+
+
+                      
+
+                    </div>
+
+                </div>
+                <div class="right-detail" v-for="td in tableData">
+                    
+                    <div class="detail-name">
+                        <div class="detail-div">
+                            <label>姓名</label>
+                            <input type="text" v-model="newname" maxlength="10" v-on:input="inputName" > 
+                            <div class="name-error">
+                                {{td[key.key]}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-describe">
+                        <div class="detail-div">
+                            <label>描述</label>
+                            <input type="text" v-model="newdescribe" maxlength="25">
+                        </div>
+
+                    </div>
+                    <div class="detail-email">
+                        <div class="detail-div">
+
+                            <label>邮箱</label>
+                            <input type="email" v-model="newemail" ref="email" v-on:blur.prevent="verifyEmail" maxlength="20">
+                            <div class="name-error">
+                                {{emailerror}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-phone">
+                        <div class="detail-div">
+
+                            <label>电话</label>
+                            <input type="text" v-model="newphone" ref="phone" v-on:blur.prevent="verifyPhone" maxlength="11">
+                            <div class="name-error">
+                                {{phoneerror}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-apartment">
+                        <div class="detail-div">
+
+                            <label>部门</label>
+                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" value="董事局">
+
+                        </div>
+                    </div>
+                    <div class="detail-post">
+                        <div class="detail-div">
+
+                            <label>职位</label>
+                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" value="CEO">
+
+                        </div>
+                    </div>
+                    <div class="detail-address">
+                        <div class="detail-div">
+
+                            <label>地址</label>
+                            <input type="text" v-model="newaddress">
+                        </div>
+                    </div>
+                    <div class="detail-title">
+                        <div class="detail-div">
+
+
+                            <p>
+                                <label>标签</label>
+                                <div class="title-items">
+                                    <div>
+                                        <span>开朗乐观
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>开朗乐观
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>开朗乐观
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>开朗乐观
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>开朗乐观
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="detail-div">
+
+                            <div class="buttons">
+                                <button class="">
+                                    <span>保存</span>
+                                </button>
+                                <button>
+                                    <span>返回</span>
+                                </button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                   
+
+                </div>
+
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+</html>
+
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            newname: "jpk",
+            newdescribe: "执着于理想，纯粹于当下",
+            newemail: "jpk960123@163.com",
+            newphone: "15957759696",
+            newaddress: "浙江温州",
+            nameerror: "",
+            emailerror: "",
+            phoneerror: "",
+            tableData: [],
+            tableDataKeys: [
+                { key: 'username', val: "姓名" },
+                { key: 'id', val: "工号" },
+                { key: 'department', val: "部门" },
+                { key: 'title', val: "职位" },
+                { key: 'service_time', val: "工龄" },
+                { key: 'sex', val: "性别" },
+                { key: 'address', val: "住址" },
+                { key: 'phone', val: "电话" },
+                { key: 'status', val: "状态" },
+                { key: 'note', val: "备注" }
+            ]
+        },
+        methods: {
+            //获取数据
+            getusers() {
+                const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
+                axios.get('http://localhost:8080/StaffManageServlet?flag=1').then(function(res) {
+                    that.tableData = res.data
+                })
+            },
+            // 姓名验证
+            inputName() {
+                if (this.newname.length == 10) {
+                    this.nameerror = "姓名长度不能超过10"
+                }
+                else {
+                    this.nameerror = ""
+                }
+            },
+            // 手机号码验证
+            verifyPhone() {
+                var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+               
+                if (this.newphone == '') {
+                    alert("请输入手机号码");
+                    this.$refs.phone.focus();
+                } else if (!reg.test(this.newphone)) {
+                   
+                    this.phoneerror = "手机格式不正确"
+                    this.$refs.phone.focus();
+                    
+                }else{
+                    this.phoneerror = ""
+                }
+            },
+            // 邮箱验证
+            verifyEmail(){
+                var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
+                if (this.newemail == '') {
+                    alert("请输入邮箱");
+                    this.$refs.email.focus();
+                } else if (!reg.test(this.newemail)) {
+                   
+                    this.emailerror = "邮箱格式不正确"
+                    this.$refs.email.focus();
+                    
+                }else{
+                    this.emailerror = ""
+                }
+            }
+        }
+    })
+</script>
