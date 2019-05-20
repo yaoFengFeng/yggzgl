@@ -58,11 +58,21 @@
                             <th> 操作</th>
                         </tr>
                     </thead>
-                    <tr v-for='td in tableData'>
-                        <td v-for="key in tableDataKeys">{{td[key.key]}} </td>
+                    <tr v-for='(td,index) in tableData' v-if='!trUpdate[index]'>
+                        <td v-for="key in tableDataKeys"> {{td[key.key]}} </td>
                         <td class="tdOperation">
-                            <button class="updateBtn">修改</button>
-                            <button class="deleteBtn">删除</button>
+                            <button class="updateBtn" @click="updateUser(index)">修改</button>
+                            <button class="deleteBtn" @click="deleteUser(index)">删除</button>
+                        </td>
+                    </tr>
+                    <tr v-else>
+                        <td v-for="key in tableDataKeys">
+                            <input type="text" v-model="td[key.key]" autofocus="autofocus" v-if="key.key == phone">
+                            <input type="text" v-model="td[key.key]" v-else>
+                        </td>
+                        <td class="tdOperation">
+                            <button class="update" @click="toUpdateUser(index)">确定</button>
+                            <button class="update" @click="unUpdateUser(index)">取消</button>
                         </td>
                     </tr>
                     <tfoot v-if="isShowTfoot">

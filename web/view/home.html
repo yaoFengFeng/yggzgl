@@ -10,18 +10,42 @@
     <link rel="stylesheet" href="view/public/css/home.css">
     <script src="view/public/vue.js"></script>
     <script src="view/public/axios.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
 
-<body >
+<!--<<<<<<< HEAD-->
+<!--<body >-->
+<!--<div class="top">-->
+<!--<div class="topLeft">-->
+<!--<span>员工工资管理</span>-->
+<!--</div>-->
+<!--<div class="topRight">-->
+
+<!--<span class="loginMsg"><label>欢迎：</label>安耀锋</span>-->
+<!--<span class="loginMsg">退出登录</span>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--<div class="main">-->
+<!--<div class="navLeft">-->
+<!--<span class="nowTimes">{{realTime}}</span>-->
+<!--<ul class="my_ui">-->
+<!--<li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}"><i :class="tab.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="iframe">-->
+<!--<iframe :src="iframes[iframeIndex]"></iframe>-->
+<!--=======-->
+<body>
+<div class="all">
     <div class="top">
         <div class="topLeft">
             <span>员工工资管理</span>
         </div>
         <div class="topRight">
-
-            <span class="loginMsg"><label>欢迎：</label>安耀锋</span>
-            <span class="loginMsg">退出登录</span>
+            <span class="loginMsg">欢迎：<label v-text="username"></label></span>
+            <span class="loginMsg" @click="exit()">退出登录</span>
         </div>
     </div>
 
@@ -29,22 +53,26 @@
         <div class="navLeft">
             <span class="nowTimes">{{realTime}}</span>
             <ul class="my_ui">
-                <li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}"><i :class="tab.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}</li>
+                <li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}"><i :class="tab.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}
+                </li>
             </ul>
         </div>
         <div class="iframe">
             <iframe :src="iframes[iframeIndex]"></iframe>
         </div>
+
     </div>
+</div>
+
 </body>
 
 
 <script>
-    window.onload = function() {
-        new Vue({
-            el: '.main',
+    window.onload = function () {
+        var vm = new Vue({
+            el: '.all',
             data: {
-                realTime:'abc',
+                realTime: 'abc',
                 active: true,
                 bg: '',
                 iframeIndex: 0,
@@ -85,10 +113,18 @@
                     'view/manageStaff.html',
                     'view/personal.html',
                     'view/manageStaff.html',
-                ]
+                ],
+                username: "132"
+            },
+            created: function () {
+                const that = this;
+                axios.get('http://localhost:8080/GetSelfServlet').then(function (res) {
+                    that.username = res.data[0].username;
+                    console.log(that.username);
+                })
             },
 
-            mounted () {
+            mounted() {
                 // 页面加载完后显示当前时间
                 this.realTime = this.dealWithTime(new Date())
                 // 定时刷新时间
@@ -100,15 +136,15 @@
             },
             methods: {
                 toIfream(tab, i) {
-                    this.lis.forEach(function(item) {
+                    this.lis.forEach(function (item) {
                         item.showBg = false;
-                    })
+                    });
                     this.iframeIndex = i;
                     tab.showBg = true;
                 },
 
-            //    定时器
-                dealWithTime (data) {
+                //    定时器
+                dealWithTime(data) {
                     let formatDateTime
                     let Y = data.getFullYear()
                     let M = data.getMonth() + 1
@@ -147,12 +183,16 @@
                     }
                     formatDateTime = Y + '年' + M + '月' + D + '日 ' + H + ':' + Min + ':' + S + ' 星期' + W
                     return formatDateTime;
+                },
+                exit() {
+                    window.location.href = 'http://localhost:8080/ExitServlet';
                 }
             },
-            destroyed () {
+            destroyed() {
                 if (this.timer) {
                     clearInterval(this.timer);
                 }
+
             }
         })
     }

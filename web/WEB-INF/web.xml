@@ -3,18 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-
-
     <welcome-file-list>
         <welcome-file>view/index.html</welcome-file>
     </welcome-file-list>
 
-    <filter>
-        <filter-name>HeaderFilter</filter-name>
-        <filter-class>servlet.HeaderFilter</filter-class><!--你过滤器的包 -->
-    </filter>
-    <filter-mapping>
-        <filter-name>HeaderFilter</filter-name>
-        <url-pattern>/*</url-pattern><!-- 你开放的接口前缀  -->
-    </filter-mapping>
+
 </web-app>
