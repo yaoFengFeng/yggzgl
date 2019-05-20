@@ -225,7 +225,6 @@ window.onload = function() {
                     that.getusers();
                 });
             }
-
         }
     });
 

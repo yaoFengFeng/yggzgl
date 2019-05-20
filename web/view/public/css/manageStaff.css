@@ -162,7 +162,7 @@ button {
 }
 
 .content {
-    width: 100%-50px;
+    width: calc(100% - 50px);
     margin-left: 30px;
     margin-right: 30px;
 }
