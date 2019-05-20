@@ -2,7 +2,6 @@ package servlet;
 
 import dao.UserDao;
 import entity.User;
-import net.sf.json.JSONArray;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,6 +34,7 @@ public class LoginServlet extends HttpServlet {
         if (res == 1){
             HttpSession session = request.getSession();
             session.setAttribute("id", request.getParameter("id")); //将用户id通过session保存
+            session.setAttribute("username", userDao.username); //将用户id通过session保存
         }
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();

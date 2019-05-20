@@ -22,8 +22,6 @@ public class HomeServlet extends HttpServlet {
         if (session.getAttribute("id") == null){
             request.getRequestDispatcher("/view/error403.html").forward(request,response);
         }else{
-            String userId = session.getAttribute("id").toString();
-            System.out.println(userId);
             request.getRequestDispatcher("/view/home.html").forward(request,response);
         }
     }
