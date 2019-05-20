@@ -26,10 +26,10 @@
             <button class="importBtn" @click="showM()">导入员工信息 </button>
             <p class="conditions">
                 <span class="name">姓名：</span>
-                <input type="text">
+                <input type="text" v-model="employeesName">
                 <span class="id">工号：</span>
-                <input type="text">
-                <button>搜索</button>
+                <input type="text" v-model="employeesID">
+                <button @click="search()">搜索</button>
             </p>
 
             <!-- 弹出层 导入员工信息 -->
@@ -47,7 +47,7 @@
         </div>
         <div class="content">
             <div class="operation">
-                <button>添加</button>
+                <button @click="showTfoot()">添加</button>
                 <button class="outputBtn">导出数据</button>
             </div>
             <div class="myTable">
@@ -65,6 +65,32 @@
                             <button class="deleteBtn">删除</button>
                         </td>
                     </tr>
+                    <tfoot v-if="isShowTfoot">
+                        <tr>
+                            <td v-for="(data,i) in tableDataKeys" v-if="data.val == '部门'">
+                                <select v-model="insertDatas[data.key]">
+                                    <option value=""></option>
+                                    <option v-for="(items,index) in options" v-if="index > 0" v-text="items.text">
+
+                                    </option>
+                                </select>
+                            </td>
+
+                            <td v-else-if="data.val == '职位'">
+                                <select v-model="insertDatas[data.key]">
+                                    <option v-for="(items,index) in titles" v-text="items.text">
+                                    </option>
+                                </select>
+                            </td>
+                            <td v-else>
+                                <input type="text" v-model="insertDatas[data.key]">
+                            </td>
+                            <td class="tdOperation">
+                                <button class="updateBtn " @click="toInserUser()">添加</button>
+                                <button class="updateBtn " @click="unInsert()">取消</button>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

@@ -23,13 +23,15 @@ table tbody {
 }
 
 table tr,
-table thead {
+table thead,
+table tfoot {
     display: table;
     width: 100%;
     table-layout: fixed;
 }
 
-table thead {
+table thead,
+table tfoot {
     width: calc( 100% - 17px)
 }
 
@@ -41,6 +43,42 @@ table td,
 th {
     border-left: 1px solid rgb(192, 192, 192);
     border-top: 1px solid rgb(192, 192, 192);
+}
+
+table tfoot td {
+    border-bottom: 2px solid rgb(255, 0, 0);
+    border-top: 2px solid rgb(255, 0, 0);
+}
+
+table tfoot td:nth-child(1) {
+    border-left: 2px solid rgb(255, 0, 0);
+}
+
+table tfoot td:nth-child(11) {
+    border-right: 2px solid rgb(255, 0, 0);
+}
+
+table tfoot tr {
+    height: 45px;
+}
+
+table tfoot tr input,
+table tfoot tr select {
+    width: calc( 100% - 8px);
+    height: 80%;
+    border: none;
+    text-align: center;
+    color: #ff6600;
+    font-size: 18px
+}
+
+table tfoot tr select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 18px;
+    display: inline-block;
+    text-align-last: center;
 }
 
 .top {
@@ -207,4 +245,8 @@ button {
     display: block;
     height: 30px;
     margin-top: 25px;
+}
+
+tfoot button {
+    background-color: #ff6600
 }
