@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserDao extends MySQLConnection {
-        private Connection conn = getConnection();
+public class UserDao {
+        private Connection conn = MySQLConnection.getConnection();
         private PreparedStatement pstmt = null;
         private ResultSet rs = null;
         public  String username;
@@ -47,7 +47,7 @@ public class UserDao extends MySQLConnection {
             return list;
         }
 
-        public int insertUser(String sql){
+        public int insertOrdeleteUser(String sql){
             int row = 0;
             System.out.println(sql);
             try {

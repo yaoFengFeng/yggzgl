@@ -31,10 +31,10 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8"); // 防止乱码
         user.setId(request.getParameter("id"));
         user.setPsd(request.getParameter("psd"));
-        String res = userDao.login(user) + "";
-        if (res == "1"){
+        int res = userDao.login(user) ;
+        if (res == 1){
             HttpSession session = request.getSession();
-            session.setAttribute("username", userDao.username); //将用户名通过session保存
+            session.setAttribute("id", request.getParameter("id")); //将用户id通过session保存
         }
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();

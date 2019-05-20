@@ -24,6 +24,7 @@ public class StaffManageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
+        UserDao userDao;
         int row = -1;
         int flag = Integer.parseInt(request.getParameter("flag"));
         switch (flag){
@@ -48,13 +49,13 @@ public class StaffManageServlet extends HttpServlet {
                         user.setStatus(job.getString("status"));
                         userList.add(user);
                     }
-                    UserDao userDao = new UserDao();
+                    userDao = new UserDao();
                     row = userDao.insertUsers(userList);
                 }
                 break;
             case 1:
-                UserDao userDao = new UserDao();
-                row = userDao.insertUser(request.getParameter("str"));
+                userDao = new UserDao();
+                row = userDao.insertOrdeleteUser(request.getParameter("str"));
                 break;
         }
         out.print(row);
@@ -87,6 +88,5 @@ public class StaffManageServlet extends HttpServlet {
         out.print(jsonObj);
         out.flush();
         out.close();
-
     }
 }

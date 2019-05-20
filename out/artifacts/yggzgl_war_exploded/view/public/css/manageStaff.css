@@ -18,7 +18,7 @@ table {
 table tbody {
     display: block;
     width: 100%;
-    max-height: 500px;
+    max-height: 450px;
     overflow-y: scroll;
 }
 
@@ -62,8 +62,8 @@ table tfoot tr {
     height: 45px;
 }
 
-table tfoot tr input,
-table tfoot tr select {
+table tr input,
+table tr select {
     width: calc( 100% - 8px);
     height: 80%;
     border: none;
@@ -79,6 +79,11 @@ table tfoot tr select {
     font-size: 18px;
     display: inline-block;
     text-align-last: center;
+}
+
+tfoot button,
+.update {
+    background-color: #ff6600
 }
 
 .top {
@@ -207,7 +212,7 @@ button {
     /* 脱离文档流*/
     position: fixed;
     top: 0px;
-    background-color: rgb(201, 201, 201, 0.5);
+    background-color: rgba(201, 201, 201, 0.5);
 }
 
 .importImp {
@@ -245,8 +250,4 @@ button {
     display: block;
     height: 30px;
     margin-top: 25px;
-}
-
-tfoot button {
-    background-color: #ff6600
 }
