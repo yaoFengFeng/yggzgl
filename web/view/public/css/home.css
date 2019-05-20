@@ -93,10 +93,11 @@
 }
 
 .iframe {
+
     box-shadow: -1px -1px 10px #888888;
     margin-left: 200px;
     height: 100%;
-    width: 100% - 50px;
+    width: calc(100% - 200px);
     
    
     

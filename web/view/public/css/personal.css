@@ -54,8 +54,7 @@ body{
 }
 .left-title span{
     margin: 3px;
-   
-    display: inline-block;
+    float: left;
     padding: 3px;
     border: #2c2c2c 1px dashed;
     color: #474747;

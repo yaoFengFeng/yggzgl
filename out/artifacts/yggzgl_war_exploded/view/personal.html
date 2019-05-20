@@ -29,14 +29,11 @@
                 <div>
                     <p>标签</p>
                     <p>
-                        <div class="left-title">
-                            <span>开朗乐观</span>
-                            <span>开朗乐观</span>
-                            <span>开朗乐观</span>
-                            <span>开朗乐观</span>
-                            <span>开朗乐观</span>
-                            <span>乐观</span>
-                            <span>开朗</span>
+                        <div class="left-title" v-for="(item,index) in arr">
+                            <span @click="removeTag(index)">{{item.tag}}
+                                <i class="fas fa-times"></i>
+                            </span>
+
 
                         </div>
                     </p>
@@ -59,14 +56,14 @@
                     </div>
 
                 </div>
-                <div class="right-detail" v-for="td in tableData">
+                <div class="right-detail" >
                     
                     <div class="detail-name">
                         <div class="detail-div">
                             <label>姓名</label>
                             <input type="text" v-model="newname" maxlength="10" v-on:input="inputName" > 
                             <div class="name-error">
-                                {{td[key.key]}}
+                                {{nameerror}}
                             </div>
                         </div>
                     </div>
@@ -127,31 +124,12 @@
                             <p>
                                 <label>标签</label>
                                 <div class="title-items">
-                                    <div>
-                                        <span>开朗乐观
-                                            <i class="fas fa-times"></i>
-                                        </span>
+                                    <input type="text" v-model="addtitle" v-on:blur.prevent="addText()" />
+
+                                    <p><div v-for="(item,index) in arrTitle">
+                                        <span @click="addTag(item.title)">{{item.title}}</span>
                                     </div>
-                                    <div>
-                                        <span>开朗乐观
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span>开朗乐观
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span>开朗乐观
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <span>开朗乐观
-                                            <i class="fas fa-times"></i>
-                                        </span>
-                                    </div>
+                                    </p>
                                 </div>
                             </p>
                         </div>
@@ -188,7 +166,15 @@
     new Vue({
         el: "#root",
         data: {
-            newname: "jpk",
+            //印象标签
+            arr:[],
+            addtitle:"",
+            arrTitle:[
+                { title:'天真开朗' },
+                { title:'乐观' },
+                { title:'可爱' }
+            ],
+            newname: "your name",
             newdescribe: "执着于理想，纯粹于当下",
             newemail: "jpk960123@163.com",
             newphone: "15957759696",
@@ -211,10 +197,32 @@
             ]
         },
         methods: {
+            //添加标签
+            addText:function(){
+                // if(this.in_array(this.addtitle,this.arr)){
+                //     this.error="标签已经存在！";
+                // }else{
+                if(this.addtitle!=""){
+                    this.arr.push({"tag":this.addtitle});
+                }
+                    this.addtitle="";
+                // }
+
+            },
+            addTag:function(item){
+                console.log(item);
+                this.arr.push({"tag":item});
+
+
+            },
+            //点击删除标签
+            removeTag:function(index){
+                this.arr.splice(index,1);
+            },
             //获取数据
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
-                axios.get('http://localhost:8080/StaffManageServlet?flag=1').then(function(res) {
+                axios.get('http://localhost:8080/StaffManageServlet?flag=3').then(function(res) {
                     that.tableData = res.data
                 })
             },

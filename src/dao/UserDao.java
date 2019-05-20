@@ -47,6 +47,19 @@ public class UserDao extends MySQLConnection {
             return list;
         }
 
+        public int insertUser(String sql){
+            int row = 0;
+            System.out.println(sql);
+            try {
+                pstmt = conn.prepareStatement(sql);
+                row  = pstmt.executeUpdate();
+                conn.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return row;
+        }
+
         public int insertUsers(List<User> userList){
             int size = userList.size();
             User user;
@@ -88,21 +101,14 @@ public class UserDao extends MySQLConnection {
 
         public List<Map<String,String>> getUsersByDepartment(String dep){
             List<Map<String,String>>  list ;
-            String sql = "select * from users WHERE dep = '"+dep+"'";
+            String sql = "select * from users WHERE department = '"+dep+"'";
             list = getUsers(sql);
             return list;
         }
 
-        public List<Map<String,String>> getUser(String username,String id){
+        public List<Map<String,String>> getUser(String str){
             List<Map<String,String>>  list ;
-            String sql;
-            if (username == ""){
-                sql = "select * from users WHERE id = '"+id+"'";
-            }else if(id == ""){
-                sql = "select * from users WHERE username = '"+username+"'";
-            }else{
-                sql = "select * from users WHERE id = '"+id+"' and username = '"+ username+"'";
-            }
+            String sql = "select * from users WHERE " + str;
             list = getUsers(sql);
             return list;
         }
