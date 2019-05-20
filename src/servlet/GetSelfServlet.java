@@ -22,7 +22,7 @@ public class GetSelfServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text/html;charset=UTF-8");
         UserDao userDao = new UserDao();
         List<Map<String, String>> res;
         HttpSession session = request.getSession();

@@ -28,6 +28,7 @@ public class LoginServlet extends HttpServlet {
         User user = new User();
         UserDao userDao = new UserDao();
         request.setCharacterEncoding("UTF-8"); // 防止乱码
+        response.setContentType("text/html;charset=UTF-8");
         user.setId(request.getParameter("id"));
         user.setPsd(request.getParameter("psd"));
         int res = userDao.login(user) ;
@@ -36,7 +37,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("id", request.getParameter("id")); //将用户id通过session保存
             session.setAttribute("username", userDao.username); //将用户id通过session保存
         }
-        response.setContentType("text/html;charset=utf-8");
+
         PrintWriter out = response.getWriter();
         out.print(res);//返回登录信息
         out.flush();
