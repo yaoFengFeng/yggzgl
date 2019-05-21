@@ -67,7 +67,7 @@ public class StaffManageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=utf-8");
+        response.setContentType("text/html;charset=UTF-8");
         UserDao userDao = new UserDao();
         int flag = Integer.parseInt(request.getParameter("flag"));
         List<Map<String, String>> res;
