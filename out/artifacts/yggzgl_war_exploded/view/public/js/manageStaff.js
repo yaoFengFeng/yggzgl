@@ -45,7 +45,11 @@ window.onload = function() {
             },
             //监听 select改变 获取index  ele.target.value获取值
             change(ele) {
-                console.log(ele.target.selectedIndex)
+                console.log(ele.target.selectedIndex);
+                var dep = ele.target.value;
+                axios.get('http://localhost:8080/StaffManageServlet?flag=2&dep=' + dep).then(function(res) {
+                    that.tableData = res.data
+                })
             },
             showM() {
                 this.showSelf = true;
@@ -80,16 +84,17 @@ window.onload = function() {
                     for (var row in keys) {
                         updata[a][keys[row].key] = data[a][keys[row].val];
                         if (!data[a][keys[row].val]) {
-                            updata[a][keys[row].key] = " "
+                            updata[a][keys[row].key] = " " // !!!为了防止JSON.stringify(updata)时 将空值的属性忽略 导致后台提取时报错
                         }
                     }
                 }
                 var params = new URLSearchParams(); //处理参数 兼容性不高  可以用babel转换
                 params.append('userlist', JSON.stringify(updata));
-                console.log(JSON.stringify(updata));
+                const that = this;
                 axios.post('http://localhost:8080/StaffManageServlet', params).then(function(res) {
-                    this.showSelf = false;
-                    console.log(res.data);
+                    that.showSelf = false; //隐藏弹出层
+                    that.getusers(); //重新获取数据 刷新表格
+                    console.log(res.data); //返回1 表示导入成功 可以后期加一些提示
                 })
             }
         }
