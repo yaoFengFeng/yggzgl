@@ -2,7 +2,6 @@ package servlet;
 
 import dao.UserDao;
 import entity.User;
-import net.sf.json.JSONArray;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,16 +24,20 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        Map<String,String> map = new HashMap<String,String>();
         User user = new User();
         UserDao userDao = new UserDao();
         request.setCharacterEncoding("UTF-8"); // 防止乱码
         user.setId(request.getParameter("id"));
         user.setPsd(request.getParameter("psd"));
-        String res = userDao.login(user) + "";
-        if (res == "1"){
+        int res = userDao.login(user) ;
+        System.out.println(res);
+        if (res == 1){
+            System.out.println(res);
+            request.getSession().invalidate();//清除 session 中的所有信息
             HttpSession session = request.getSession();
-            session.setAttribute("username", userDao.username); //将用户名通过session保存
+            session.setAttribute("id", request.getParameter("id")); //将用户id通过session保存
+            System.out.println(session.getAttribute("id"));
+            session.setAttribute("username", userDao.username); //将用户id通过session保存
         }
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();

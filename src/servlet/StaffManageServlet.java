@@ -24,32 +24,44 @@ public class StaffManageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
-        //json字符串转成 JSONArray
-        JSONArray arr = JSONArray.fromObject(request.getParameter("userlist"));
-        if (arr.size() > 0) {
-            List<User> userList = new ArrayList<>();
-            User user;
-            for (int i = 0; i < arr.size(); i++) {
-                JSONObject job = arr.getJSONObject(i);
-                user = new User();
-                user.setUsername(job.getString("username"));
-                user.setAddress(job.getString("address"));
-                user.setPhone(job.getString("phone"));
-                user.setId(job.getString("id"));
-                user.setDepartment(job.getString("department"));
-                user.setNote(job.getString("note"));
-                user.setServiceTime(job.getInt("service_time"));
-                user.setSex(job.getString("sex"));
-                user.setTitlt(job.getString("title"));
-                user.setStatus(job.getString("status"));
-                userList.add(user);
-            }
-            UserDao userDao = new UserDao();
-            int row = userDao.insertUsers(userList);
-            out.print(row);
-            out.flush();
-            out.close();
+        UserDao userDao;
+        int row = -1;
+        int flag = Integer.parseInt(request.getParameter("flag"));
+        switch (flag){
+            case 0:
+                //json字符串转成 JSONArray
+                JSONArray arr = JSONArray.fromObject(request.getParameter("userlist"));
+                if (arr.size() > 0) {
+                    List<User> userList = new ArrayList<>();
+                    User user;
+                    for (int i = 0; i < arr.size(); i++) {
+                        JSONObject job = arr.getJSONObject(i);
+                        user = new User();
+                        user.setUsername(job.getString("username"));
+                        user.setAddress(job.getString("address"));
+                        user.setPhone(job.getString("phone"));
+                        user.setId(job.getString("id"));
+                        user.setDepartment(job.getString("department"));
+                        user.setNote(job.getString("note"));
+                        user.setServiceTime(job.getInt("service_time"));
+                        user.setSex(job.getString("sex"));
+                        user.setTitlt(job.getString("title"));
+                        user.setStatus(job.getString("status"));
+                        userList.add(user);
+                    }
+                    userDao = new UserDao();
+                    row = userDao.insertUsers(userList);
+                }
+                break;
+            case 1:
+                userDao = new UserDao();
+                row = userDao.insertOrdeleteUser(request.getParameter("str"));
+                break;
         }
+        out.print(row);
+        out.flush();
+        out.close();
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -64,10 +76,9 @@ public class StaffManageServlet extends HttpServlet {
         }else if (flag == 2){
             String dep = request.getParameter("dep");
              res = userDao.getUsersByDepartment(dep);
-        }else {
-            String id = request.getParameter("id");
-            String username = request.getParameter("username");
-            res = userDao.getUser(username,id);
+        }else{
+            String str = request.getParameter("str");
+            res = userDao.getUser(str);
         }
         PrintWriter out = response.getWriter(); //这里有坑 上面的编码设置一定要在这句话前面 不然中文会乱码
         JSONArray jsonObj = new JSONArray();
@@ -77,6 +88,5 @@ public class StaffManageServlet extends HttpServlet {
         out.print(jsonObj);
         out.flush();
         out.close();
-
     }
 }

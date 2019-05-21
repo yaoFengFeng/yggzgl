@@ -3,8 +3,11 @@ window.onload = function() {
     var all = new Vue({
         el: '.all',
         data: {
+            employeesName: "",
+            employeesID: "",
             /* 表格数据 */
             tableData: [],
+            trUpdate: [],
             /*
              *tableDataKeys：
              * 0. val值可以作为th 表头数据
@@ -25,7 +28,7 @@ window.onload = function() {
             ],
 
             options: [
-                { text: "---选择部门---" },
+                { text: "---所有部门---" },
                 { text: "人事部" },
                 { text: "财务部" },
                 { text: "技术部" },
@@ -33,21 +36,74 @@ window.onload = function() {
                 { text: "监察部" },
                 { text: "后勤部" }
             ],
+            titles: [
+                { text: "" },
+                { text: "经理" },
+                { text: "工程师" },
+                { text: "组长" },
+                { text: "助理" },
+                { text: "实习生" },
+                { text: "职员" },
+                { text: "主任" }
+            ],
             filename: "",
-            showSelf: false
+            showSelf: false,
+            isShowTfoot: false,
+            insertDatas: {
+                username: "",
+                id: "",
+                department: "",
+                title: "",
+                service_time: "",
+                sex: "",
+                address: "",
+                phone: "",
+                status: "",
+                note: ""
+            }
+        },
+        computed: {
+            isShowTr: function(index) {
+                this.trUpdate[index] = !this.trUpdate[index];
+                return this.trUpdate[index];
+            }
         },
         methods: {
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
                 axios.get('http://localhost:8080/StaffManageServlet?flag=1').then(function(res) {
-                    that.tableData = res.data
+                    that.tableData = res.data;
+                    for (let i in that.tableData) {
+                        that.trUpdate[i] = false;
+                    }
                 })
             },
             //监听 select改变 获取index  ele.target.value获取值
             change(ele) {
-                console.log(ele.target.selectedIndex);
+                const that = this;
                 var dep = ele.target.value;
-                axios.get('http://localhost:8080/StaffManageServlet?flag=2&dep=' + dep).then(function(res) {
+                if (ele.target.selectedIndex == 0) { //选择第一个 option获取所有员工信息
+                    that.getusers();
+                } else {
+                    axios.get('http://localhost:8080/StaffManageServlet?flag=2&dep=' + dep).then(function(res) {
+                        that.tableData = res.data
+                    })
+                }
+
+            },
+            search() {
+                const that = this;
+                if (!(that.employeesName || that.employeesID)) {
+                    alert('请输入姓名或者工号');
+                    return;
+                } else if (!that.employeesName && that.employeesID) {
+                    var str = " id = '" + that.employeesID + "'";
+                } else if (that.employeesName && !that.employeesID) {
+                    var str = " username = '" + that.employeesName + "'";
+                } else {
+                    var str = " username = '" + that.employeesName + "' and id = '" + that.employeesID + "'";
+                }
+                axios.get('http://localhost:8080/StaffManageServlet?flag=3&str=' + str).then(function(res) {
                     that.tableData = res.data
                 })
             },
@@ -90,12 +146,84 @@ window.onload = function() {
                 }
                 var params = new URLSearchParams(); //处理参数 兼容性不高  可以用babel转换
                 params.append('userlist', JSON.stringify(updata));
+                params.append('flag', 0);
                 const that = this;
                 axios.post('http://localhost:8080/StaffManageServlet', params).then(function(res) {
                     that.showSelf = false; //隐藏弹出层
                     that.getusers(); //重新获取数据 刷新表格
                     console.log(res.data); //返回1 表示导入成功 可以后期加一些提示
                 })
+            },
+            showTfoot() {
+                this.isShowTfoot = !this.isShowTfoot;
+            },
+            toInserUser() {
+                var str1 = "";
+                var str2 = "";
+                const that = this;
+                for (key in this.insertDatas) {
+                    if (this.insertDatas[key]) {
+                        str1 += key + ",";
+                        str2 += "'" + this.insertDatas[key] + "',"
+                    }
+                }
+                str1 = str1.substr(0, str1.length - 1);
+                str2 = str2.substr(0, str2.length - 1);
+                var str = "insert into users(" + str1 + ") values(" + str2 + ")"
+                axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function(res) {
+                    if (res.data) {
+                        that.getusers();
+                        //插入成功之后 清空insertDatas的属性值（不删除属性）
+                        Object.keys(that.insertDatas).forEach(key => that.insertDatas[key] = "");
+                    }
+
+                })
+            },
+            unInsert() {
+                this.isShowTfoot = false; //隐藏添加行
+            },
+            deleteUser(index) {
+                // console.log(this.tableData[index].id);
+                let a = confirm('确定删除员工 ' + this.tableData[index].username + " 的信息?");
+                if (a) {
+                    let id = this.tableData[index].id;
+                    this.tableData.splice(index, 1);
+                    let str = "delete from users where id = '" + id + "'";
+                    axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function() {
+                        alert("已删除");
+                    });
+                }
+            },
+            updateUser(index) {
+                for (var i in this.trUpdate) {
+                    this.trUpdate[i] = false;
+                }
+                this.trUpdate[index] = true;
+                this.isShowTfoot = true;
+                this.isShowTfoot = false;
+
+            },
+            unUpdateUser(index) {
+                this.trUpdate[index] = false;
+                this.isShowTfoot = true;
+                this.isShowTfoot = false;
+                console.log(this.trUpdate);
+            },
+            toUpdateUser(index) {
+                let str = "update users set ";
+                for (let key in this.tableData[index]) {
+                    let str1 = this.tableData[index][key];
+                    if (key == 'service_time') {
+                        str1 = this.tableData[index][key].substr(0, str1.length - 1); // 把年去掉
+                        console.log(str1);
+                    }
+                    str += key + " = '" + str1 + "',";
+                }
+                str = str.substr(0, str.length - 1) + " where id = '" + this.tableData[index]['id'] + "'";
+                const that = this;
+                axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function() {
+                    that.getusers();
+                });
             }
         }
     });
