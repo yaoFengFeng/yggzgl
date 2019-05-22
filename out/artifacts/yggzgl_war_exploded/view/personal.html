@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
 </head>
 
 <body>
@@ -17,20 +18,22 @@
         <div class="left-card">
             <div class="left-content">
                 <p style="margin:auto;width:100px;height:100px;background-color: lightcoral"></p>
-                <p class="left-name" id="left-name">{{newname}}</p>
-                <p class="left-font">{{newdescribe}}</p>
+                <p class="left-name" id="left-name">{{tableDataKeys.username}}</p>
+                <p class="left-font">{{tableDataKeys.describes}}</p>
                 <div class="left-information">
-                    <p><span><i class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{newemail}}</span></p>
-                    <p><span><i class="fas fa-award"></i>&nbsp;&nbsp;&nbsp;&nbsp;某某部门 · Java 工程师</span></p>
-                    <p><span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{newaddress}}</span></p>
+                    <p><span><i class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.email}}</span></p>
+                    <p><span><i class="fas fa-award"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.department}} · {{tableDataKeys.title}}</span></p>
+                    <p><span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.address}}</span></p>
                 </div>
 
                 <hr style="margin-top:50px;margin-bottom:10px;">
                 <div>
                     <p>标签</p>
                     <p>
-                        <div class="left-title" v-for="(item,index) in arr">
-                            <span @click="removeTag(index)">{{item.tag}}
+                        <div class="left-title" v-for="(item,index) in arrs">
+                            <span @click="removeTag(index)">
+                                <!--{{item.tag}} 将标签以对象的形式存入数组-->
+                                {{arrs[index]}}
                                 <i class="fas fa-times"></i>
                             </span>
 
@@ -61,7 +64,7 @@
                     <div class="detail-name">
                         <div class="detail-div">
                             <label>姓名</label>
-                            <input type="text" v-model="newname" maxlength="10" v-on:input="inputName" > 
+                            <input type="text" v-model="tableDataKeys.username" maxlength="10" v-on:input="inputName" >
                             <div class="name-error">
                                 {{nameerror}}
                             </div>
@@ -70,7 +73,7 @@
                     <div class="detail-describe">
                         <div class="detail-div">
                             <label>描述</label>
-                            <input type="text" v-model="newdescribe" maxlength="25">
+                            <input type="text" v-model="tableDataKeys.describes" maxlength="25">
                         </div>
 
                     </div>
@@ -78,7 +81,7 @@
                         <div class="detail-div">
 
                             <label>邮箱</label>
-                            <input type="email" v-model="newemail" ref="email" v-on:blur.prevent="verifyEmail" maxlength="20">
+                            <input type="email" v-model="tableDataKeys.email" ref="email" v-on:blur.prevent="verifyEmail" maxlength="20">
                             <div class="name-error">
                                 {{emailerror}}
                             </div>
@@ -88,7 +91,7 @@
                         <div class="detail-div">
 
                             <label>电话</label>
-                            <input type="text" v-model="newphone" ref="phone" v-on:blur.prevent="verifyPhone" maxlength="11">
+                            <input type="text" v-model="tableDataKeys.phone" ref="phone" v-on:blur.prevent="verifyPhone" maxlength="11">
                             <div class="name-error">
                                 {{phoneerror}}
                             </div>
@@ -98,7 +101,7 @@
                         <div class="detail-div">
 
                             <label>部门</label>
-                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" value="董事局">
+                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" v-model="tableDataKeys.department">
 
                         </div>
                     </div>
@@ -106,7 +109,7 @@
                         <div class="detail-div">
 
                             <label>职位</label>
-                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" value="CEO">
+                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" v-model="tableDataKeys.title">
 
                         </div>
                     </div>
@@ -114,7 +117,7 @@
                         <div class="detail-div">
 
                             <label>地址</label>
-                            <input type="text" v-model="newaddress">
+                            <input type="text" v-model="tableDataKeys.address">
                         </div>
                     </div>
                     <div class="detail-title">
@@ -138,7 +141,7 @@
                         <div class="detail-div">
 
                             <div class="buttons">
-                                <button class="">
+                                <button class="" @click="save">
                                     <span>保存</span>
                                 </button>
                                 <button>
@@ -163,11 +166,13 @@
 </html>
 
 <script>
-    new Vue({
+    var test =new Vue({
         el: "#root",
         data: {
             //印象标签
-            arr:[],
+            // arr:[],
+            arrsString:"",
+            arrs:[],
             addtitle:"",
             arrTitle:[
                 { title:'天真开朗' },
@@ -182,19 +187,20 @@
             nameerror: "",
             emailerror: "",
             phoneerror: "",
-            tableData: [],
-            tableDataKeys: [
-                { key: 'username', val: "姓名" },
-                { key: 'id', val: "工号" },
-                { key: 'department', val: "部门" },
-                { key: 'title', val: "职位" },
-                { key: 'service_time', val: "工龄" },
-                { key: 'sex', val: "性别" },
-                { key: 'address', val: "住址" },
-                { key: 'phone', val: "电话" },
-                { key: 'status', val: "状态" },
-                { key: 'note', val: "备注" }
-            ]
+
+            tableDataKeys:
+                {
+                    id:"",
+                    username:"",
+                    describes:"",
+                    email:"",
+                    phone:"",
+                    department :"",
+                    title:"",
+                    address:"",
+                    titles:"",
+                }
+
         },
         methods: {
             //添加标签
@@ -203,7 +209,8 @@
                 //     this.error="标签已经存在！";
                 // }else{
                 if(this.addtitle!=""){
-                    this.arr.push({"tag":this.addtitle});
+                    // this.arr.push({"tag":this.addtitle});
+                    this.arrs.push(this.addtitle);
                 }
                     this.addtitle="";
                 // }
@@ -211,19 +218,53 @@
             },
             addTag:function(item){
                 console.log(item);
-                this.arr.push({"tag":item});
+
+                // this.arr.push({"tag":item});
+                this.arrs.push(item);
 
 
             },
             //点击删除标签
             removeTag:function(index){
-                this.arr.splice(index,1);
+                // this.arr.splice(index,1);
+                this.arrs.splice(index,1);
+
+            },
+            // 保存
+            save(){
+                // console.log(this.arrs);
+                // console.log(this.tableDataKeys);
+
+                this.tableDataKeys.titles = this.arrs.join('-');
+                // console.log(this.arrsString);
+
+                let str = "update users set ";
+                for (let key in this.tableDataKeys) {
+                    let str1 = this.tableDataKeys[key];
+                    // console.log(str1);
+                    if(!this.tableDataKeys[key]){
+                        str1 = "";
+                    }
+                    str += key + " = '" + str1 + "',";
+                }
+                str = str.substr(0, str.length - 1) + " where id = '" + this.tableDataKeys['id'] + "'";
+                axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function() {
+                    alert("修改成功");
+                });
+                console.log(str);
             },
             //获取数据
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
-                axios.get('http://localhost:8080/StaffManageServlet?flag=3').then(function(res) {
-                    that.tableData = res.data
+
+                axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
+                    for (let key in that.tableDataKeys){
+                        // console.log(key);
+                        that.tableDataKeys[key] = res.data[0][key];
+                    }
+                    that.arrs = that.tableDataKeys.titles.split('-');
+                    console.log(that.arrs);
+                    // console.log(res.data[0]);
                 })
             },
             // 姓名验证
@@ -267,5 +308,7 @@
                 }
             }
         }
-    })
+    });
+    test.getusers();
+
 </script>

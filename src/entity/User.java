@@ -7,6 +7,33 @@ public class User {
     private Date birthday,inTheTime;
     private int serviceTime; //工龄
     private String status;
+    private String descirbe;
+    private String email;
+    private String titles;
+
+    public String getDescirbe() {
+        return descirbe;
+    }
+
+    public void setDescirbe(String descirbe) {
+        this.descirbe = descirbe;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTitles() {
+        return titles;
+    }
+
+    public void setTitles(String titles) {
+        this.titles = titles;
+    }
 
     public Date getInTheTime() {
         return inTheTime;

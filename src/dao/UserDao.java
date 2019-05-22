@@ -134,6 +134,9 @@ public class UserDao {
                 user.setSex(rs.getNString("sex"));
                 user.setTitlt(rs.getNString("title"));
                 user.setStatus(rs.getNString("status"));
+                user.setDescirbe(rs.getNString("describes"));
+                user.setEmail(rs.getNString("email"));
+                user.setTitles(rs.getNString("titles"));
                 map.put("username",user.getUsername());
                 map.put("id",user.getId());
                 map.put("department",user.getDepartment());
@@ -146,6 +149,9 @@ public class UserDao {
 //                    map.put("birthday",user.getBirthday().toString());
                 map.put("status",user.getStatus());
                 map.put("note",user.getNote());
+                map.put("describes",user.getDescirbe());
+                map.put("email",user.getEmail());
+                map.put("titles",user.getTitles());
                 list.add(map);
             }
         } catch (Exception e) {

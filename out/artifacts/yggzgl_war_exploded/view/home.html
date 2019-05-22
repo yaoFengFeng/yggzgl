@@ -10,8 +10,19 @@
     <link rel="stylesheet" href="view/public/css/home.css">
     <script src="view/public/vue.js"></script>
     <script src="view/public/axios.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">-->
+    <!--<link rel="stylesheet" href="view/public/css/iconfont.css">-->
+    <!--<link rel="stylesheet" href="view/public/js/iconfont.js">-->
+    <script src="view/public/js/iconfont.js"></script>
+    <style>
+        .icon {
+            width: 23px;
+            height: 23px;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <!--<<<<<<< HEAD-->
@@ -52,7 +63,10 @@
         </div>
         <div class="topRight">
             <span class="loginMsg">欢迎：<label v-text="username"></label></span>
-            <span class="loginMsg" @click="exit()">退出登录</span>
+            <span class="loginMsg" @click="exit()">退出登录<svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-CRM_icon_tuichu"></use>
+            </svg></span>
+
         </div>
     </div>
 
@@ -60,7 +74,10 @@
         <div class="navLeft">
             <span class="nowTimes">{{realTime}}</span>
             <ul class="my_ui">
-                <li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}"><i :class="tab.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}
+                <li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}">
+                    <svg  class="icon" aria-hidden="true">
+                    <use :xlink:href="tab.icon"></use>
+                </svg>&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}
                 </li>
             </ul>
         </div>
@@ -84,31 +101,31 @@
                 bg: '',
                 iframeIndex: 0,
                 lis: [{
-                    icon: 'fas fa-home',
+                    icon: '#icon-CRM_icon_shouye',
                     text: '主页',
                     showBg: true
                 }, {
-                    icon: 'fas fa-apple-alt',
+                    icon: '#icon-CRM_icon_jichuguanli',
                     text: '部门管理',
                     showBg: false
                 }, {
-                    icon: 'fas fa-apple-alt',
+                    icon: '#icon-CRM_icon_tianjiakehu',
                     text: '员工管理',
                     showBg: false
                 }, {
-                    icon: 'fas fa-apple-alt',
+                    icon: '#icon-CRM_icon_liebiao',
                     text: '工资单修改',
                     showBg: false
                 }, {
-                    icon: 'fas fa-apple-alt',
+                    icon: '#icon-CRM_icon_kehu',
                     text: '工资管理',
                     showBg: false
                 }, {
-                    icon: 'far fa-address-card',
+                    icon: '#icon-CRM_icon_wode',
                     text: '个人信息',
                     showBg: false
                 }, {
-                    icon: 'far fa-comments',
+                    icon: '#icon-CRM_icon_dingdan',
                     text: '发布消息',
                     showBg: false
                 }],
