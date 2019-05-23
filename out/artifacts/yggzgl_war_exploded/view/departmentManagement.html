@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/department.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/department.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            部门管理
+        </div>
+        <div class="dep_bottom">
+            <div class="dep_rules">
+                <p><b>工资标准  </b>({{depName}})</p>
+                <div class="rule_table">
+                    <select @change="titleChange">
+                        <option v-for="(item,index) in alltitles" v-if="item.departmentName == depName" v-text="item.title"></option>
+                    </select>
+                    <label>基本工资：</label>
+                    <input type="text" v-model="alltitles[titleIndex].basicSalary">
+                    <label>奖金：</label>
+                    <input type="text" v-model="alltitles[titleIndex].bonus">
+                    <label>工龄工资：</label>
+                    <input type="text" v-model="alltitles[titleIndex].basic_years_salary">
+                    <div class="upRuleBtn"><button @click="upRule">上传标准</button></div>
+                </div>
+            </div>
+
+            <div class="dep_table">
+                <!-- <select v-model="selectDepN" @change="depChange">
+                    <option v-for="key in alltitles">{{key.departmentName}}</option>
+                </select> -->
+                <p><b>各部门详情</b></p>
+                <div class="depTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>部门编号</th>
+                                <th>部门名称</th>
+                                <th>部门人数</th>
+                                <th>部门电话</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tr v-for="(item,index) in deptableData" @click="depChange(item.department)">
+                            <td v-text="item.id"></td>
+                            <td v-text="item.department"></td>
+                            <td v-text="item.num"></td>
+                            <td v-text="item.phone"></td>
+
+                            <td>
+                                <button>删除</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

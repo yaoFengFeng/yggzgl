@@ -67,7 +67,7 @@
                     </tr>
                     <tr v-else>
                         <td v-for="key in tableDataKeys">
-                            <input type="text" v-model="td[key.key]" autofocus="autofocus" v-if="key.key == phone">
+                            <input type="text" v-model="td[key.key]" autofocus="autofocus" v-if="key.key == 'phone'">
                             <input type="text" v-model="td[key.key]" v-else>
                         </td>
                         <td class="tdOperation">

@@ -46,7 +46,7 @@
                         if (!this.id || !this.password) {
                             alert('工号和密码不能为空');
                         } else {
-                            axios.get('http://localhost:8080/LoginServlet', {
+                            axios.get('/LoginServlet', {
                                 params: {
                                     id: this.id,
                                     psd: this.password

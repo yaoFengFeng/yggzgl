@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -24,17 +22,19 @@ public class LoginServlet extends HttpServlet {
     }
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        Map<String,String> map = new HashMap<String,String>();
         User user = new User();
         UserDao userDao = new UserDao();
         request.setCharacterEncoding("UTF-8"); // 防止乱码
         user.setId(request.getParameter("id"));
         user.setPsd(request.getParameter("psd"));
         int res = userDao.login(user) ;
+        HttpSession session = request.getSession();
         if (res == 1){
-            HttpSession session = request.getSession();
+            System.out.println(session.getAttribute("id"));
+//            request.getSession().invalidate();//清除 session 中的所有信息
             session.setAttribute("id", request.getParameter("id")); //将用户id通过session保存
-            session.setAttribute("username", userDao.username); //将用户id通过session保存
+            System.out.println(session.getAttribute("id"));
+            session.setAttribute("username", userDao.username); //将用户名通过session保存
         }
         response.setContentType("text/html;charset=utf-8");
         PrintWriter out = response.getWriter();
