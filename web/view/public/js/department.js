@@ -2,18 +2,7 @@ window.onload = function() {
     new Vue({
         el: ".all",
         data: {
-            alltitles: [
-                { departmentName: "技术部", title: "技术总监", basicSalary: 5000, bonus: 1000, basic_years_salary: 800 },
-                { departmentName: "技术部", title: "工程师", basicSalary: 4000, bonus: 800, basic_years_salary: 600 },
-                { departmentName: "技术部", title: "助理", basicSalary: 2000, bonus: 500, basic_years_salary: 0 },
-                { departmentName: "销售部", title: "销售总监", basicSalary: 4000, bonus: 800, basic_years_salary: 200 },
-                { departmentName: "销售部", title: "主任", basicSalary: 3000, bonus: 600, basic_years_salary: 0 },
-                { departmentName: "销售部", title: "实习生", basicSalary: 2000, bonus: 200, basic_years_salary: 0 },
-                { departmentName: "人事部", title: "经理", basicSalary: 6000, bonus: 500, basic_years_salary: 0 },
-                { departmentName: "人事部", title: "职员", basicSalary: 2000, bonus: 500, basic_years_salary: 0 },
-                { departmentName: "人事部", title: "实习生", basicSalary: 2000, bonus: 500, basic_years_salary: 0 },
-                { departmentName: "董事局", title: "助理", basicSalary: 2000, bonus: 500, basic_years_salary: 0 }
-            ],
+            alltitles: [],
             deptableData: [],
             depIndex: 0,
             depName: "技术部",
@@ -39,6 +28,13 @@ window.onload = function() {
                     that.deptableData = res.data;
                 })
             },
+            getRulesData() {
+                const that = this;
+                axios.get("http://localhost:8080/RulesServlet").then(function(res) {
+                    that.alltitles = res.data;
+                    console.log(that.alltitles);
+                })
+            },
             upRule() {
                 this.upRuleData = [];
                 for (let i = 0; i < this.alltitles.length; i++) {
@@ -57,6 +53,7 @@ window.onload = function() {
         },
         mounted() {
             this.getdepData();
+            this.getRulesData();
         }
     })
 }

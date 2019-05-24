@@ -2,8 +2,24 @@ package entity;
 
 public class Wage {
     private int id;
-    private String department,title,name,others,date;
+    private String department,title,name,others,date,userID,note;
     private float basicSalary,bonus;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public String getDate() {
         return date;

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/manageStaff.css">
+    <link rel="stylesheet" href="public/css/manageWage.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/manageWage.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            工资管理
+        </div>
+        <div class="search">
+            <select name="" class="departmentSelect">
+                <option value=-1>--所有部门--</option>
+                <option v-for="item in deps" v-text="item"></option>
+            </select>
+            <p></p>
+            <p class="conditions">
+                <!-- <span class="name">姓名：</span>
+                <input type="text" v-model="employeesName"> -->
+                <span class="id">选择日期 (年/月)：</span>
+                <select>
+                    <option v-for="item in years" v-text="item"></option>
+                </select>（年）
+                <select>
+                    <option v-for="item in mouths" v-text="item"></option>
+                </select>（月）
+            </p>
+        </div>
+        <div class="content">
+            <div class="operation">
+                <button class="getNewTable" @click="makeWageData()">生成新工资表</button>
+                <button class="insertNewTable" @click="insertWageData()">确定工资表</button>
+            </div>
+            <div class="myTable">
+                <table class="wageTable">
+                    <thead>
+                        <tr>
+                            <th v-for="item in th" v-text="item"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

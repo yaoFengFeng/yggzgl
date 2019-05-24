@@ -20,27 +20,6 @@ import java.util.Map;
 @WebServlet("/DepartmentServlet")
 public class DepartmentServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter out = response.getWriter();
-        RulesDao rulesDao = new RulesDao();
-        JSONArray arr = JSONArray.fromObject(request.getParameter("ruledata"));
-        List<Rules> rulesList = new ArrayList<>();
-        Rules rules;
-        for (int i = 0; i < arr.size(); i++ ){
-            JSONObject job = arr.getJSONObject(i);
-            rules = new Rules();
-            rules.setDepartment(job.getString("departmentName"));
-            rules.setTitle(job.getString("title"));
-            rules.setBasicSalary((float) job.getDouble("basicSalary"));
-            rules.setBonus((float) job.getDouble("bonus"));
-            rules.setBasicYearsSalary((float) job.getDouble("basic_years_salary"));
-            rulesList.add(rules);
-        }
-        int row = rulesDao.insertRules(rulesList);
-        out.print(row);
-        out.flush();
-        out.close();
 
     }
 

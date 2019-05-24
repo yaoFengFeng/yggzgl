@@ -18,44 +18,21 @@ public class WageDao {
     private ResultSet rs = null;
 
     //获取员工 生成工资单时用
-    public List<Map<String,String>> getAllUsers() {
+    public List<User> getAllUsers() {
         String sql = "select id,username,service_time,title,department from users";
-        List<Map<String,String>>  list = new ArrayList<>();
-        Map<String,String> map ;
+        List<User>  list = new ArrayList<>();
+        User user ;
         try {
             this.pstmt = this.conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
             while (rs.next()){
-                map = new HashMap<String,String>();
-                map.put("username",rs.getNString("username"));
-                map.put("id",rs.getNString("id"));
-                map.put("department",rs.getNString("department"));
-                map.put("title",rs.getNString("title"));
-                map.put("service_time",rs.getInt("service_time") + "年");
-                list.add(map);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    public List<Map<String,String>> getRules(){
-        String sql = "select id,basic_salary,basic_years_salary,title,department,bonus from rules";
-        List<Map<String,String>>  list = new ArrayList<>();
-        Map<String,String> map ;
-        try {
-            this.pstmt = this.conn.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-            while (rs.next()){
-                map = new HashMap<String,String>();
-                map.put("id",rs.getInt("id")+"");
-                map.put("department",rs.getNString("department"));
-                map.put("title",rs.getNString("title"));
-                map.put("bonus",rs.getFloat("bonus")+"");
-                map.put("basic_salary",rs.getFloat("basic_salary")+"");
-                map.put("basic_years_salary",rs.getFloat("basic_years_salary")+"");
-                list.add(map);
+                user = new User();
+                user.setUsername(rs.getNString("username"));
+                user.setTitlt(rs.getNString("title"));
+                user.setServiceTime(rs.getInt("service_time"));
+                user.setDepartment(rs.getNString("department"));
+                user.setId(rs.getNString("id"));
+                list.add(user);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,14 +1,13 @@
 package dao;
 
 import entity.Rules;
-import javafx.css.Rule;
 import servlet.MySQLConnection;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,23 @@ public class RulesDao {
     //获取所有规则
     public List<Map<String,String>> getRules(){
         List<Map<String,String>> list = new ArrayList<>();
-
+        String sql = "select * from rules";
+        Map<String,String> map;
+        try {
+            this.pstmt = this.conn.prepareStatement(sql);
+            rs = pstmt.executeQuery(sql);
+            while (rs.next()){
+                map = new HashMap<>();
+                map.put("departmentName",rs.getString("department"));
+                map.put("title",rs.getString("title"));
+                map.put("basicSalary",rs.getString("basic_salary"));
+                map.put("bonus",rs.getString("bonus"));
+                map.put("basic_years_salary",rs.getString("basic_years_salary"));
+                list.add(map);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
