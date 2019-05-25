@@ -9,7 +9,7 @@ import java.io.IOException;
 @WebServlet("/HomeServlet")
 public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -19,13 +19,12 @@ public class HomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setHeader("Content-Type","text/html;charset=utf-8");
         HttpSession session = request.getSession();
-        System.out.println("alhff");
         if (session.getAttribute("id") == null || session.getAttribute("id") == "" ){
             request.getRequestDispatcher("/view/error403.html").forward(request,response);
             return;
         }else{
-            System.out.println(session.getAttribute("id"));
-            System.out.println("怎么回事");
+            int type = (int)session.getAttribute("type");
+            String name =  session.getAttribute("username").toString();
             request.getRequestDispatcher("/view/home.html").forward(request,response);
         }
     }

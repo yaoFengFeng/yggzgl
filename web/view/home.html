@@ -60,6 +60,21 @@
 
 <script>
     window.onload = function() {
+        (function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串  
+            console.log(url);
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                console.log(strs);
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            console.log(theRequest);
+            return theRequest;
+        })();
         var vm = new Vue({
             el: '.all',
             data: {
@@ -97,7 +112,7 @@
                     showBg: false
                 }],
                 iframes: [
-                    'view/homeChild.html',
+                    'view/formDetails.html',
                     'view/departmentManagement.html',
                     'view/manageStaff.html',
                     'view/historyWage.html',
@@ -105,14 +120,15 @@
                     'view/personal.html',
                     'view/manageStaff.html',
                 ],
-                username: "132"
+                username: ""
             },
             created: function() {
                 const that = this;
-                axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
-                    that.username = res.data[0].username;
-                    console.log(that.username);
-                })
+                // axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
+                //     that.username = res.data[0].username;
+                //     console.log(that.username);
+                // })
+                // console.log(this.$route.query.type, this.$route.query.name)
             },
 
             mounted() {

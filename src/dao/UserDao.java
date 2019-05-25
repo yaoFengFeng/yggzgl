@@ -18,9 +18,9 @@ public class UserDao {
         private PreparedStatement pstmt = null;
         private ResultSet rs = null;
         public  String username;
-        public int login(User user){
+        public int login(User user,String sql){
             int flag = -1;      //-1 登录失败 1 登录成功 0 数据操作有误（catch中返回）
-            String sql = "select * from users where id = ? and psd= ?";
+//            String sql = "select * from users where id = ? and psd= ?";
             String pV1 = user.getId();
             String pV2 = user.getPsd();
             try {
@@ -112,6 +112,7 @@ public class UserDao {
             list = getUsers(sql);
             return list;
         }
+
 
         private List<Map<String,String>> getUsers(String sql) {
         List<Map<String,String>>  list = new ArrayList<>();

@@ -35,14 +35,6 @@ public class User {
         this.titles = titles;
     }
 
-    public Date getInTheTime() {
-        return inTheTime;
-    }
-
-    public void setInTheTime(Date inTheTime) {
-        this.inTheTime = inTheTime;
-    }
-
     public String getStatus() {
         return status;
     }
