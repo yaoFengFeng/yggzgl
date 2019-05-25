@@ -55,6 +55,28 @@ public class WageDao {
         return list;
     }
 
+    public List<Map<String,String>> getAllWages() {
+        List<Map<String,String>>  list;
+        String sql = "select department,SUM(count) as salary from wage group by department";
+        list = new ArrayList<>();
+        Map<String,String> map ;
+        try {
+            this.pstmt = this.conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                map = new HashMap<String,String>();
+                map.put("department",rs.getString("department"));
+                map.put("salary",rs.getFloat("salary")+"");
+
+                list.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+
     public int insertOrdeleteWage(String sql){
         int row = 0;
         System.out.println(sql);

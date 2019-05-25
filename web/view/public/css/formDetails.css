@@ -3,16 +3,29 @@
     padding: 0px;
 }
 body{
-    background-color: #f3f6f8;
+    background-color: #edf4f9;
 }
 
 
 .chartsMain{
-    background-color: rgb(43, 53, 53);
+    background-color: #ffffff;
+    margin: 30px;
     padding: 30px;
     display: inline-block;
 }
 
 #canvas{
     border-radius: 5px;
+}
+.chartTitle{
+    text-align: center;
+    color: #3788ee;
+    font-size: 20px;
+    font-weight: bold;
+}
+.chartsMain2{
+    background-color: #ffffff;
+    margin: 30px;
+    padding: 30px;
+    
 }

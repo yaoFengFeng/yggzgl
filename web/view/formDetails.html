@@ -8,13 +8,19 @@
     <link rel="stylesheet" href="public/css/formDetails.css">
     <script src="public/js/sChart.js"></script>
     <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
 </head>
 <body>
+    <div id="all">
     <div class="chartsMain">
+        <p class="chartTitle">公司各部门人数分布</p>
         <canvas id="canvas" width="730px" height="420px"></canvas>
     </div>
-    
-    
+    <div class="chartsMain">
+            <p class="chartTitle">各部门工资统计</p>
+            <canvas id="canvas2" width="630px;" height="420px"></canvas>
+        </div>
+    </div>
 
 </body>
 </html>
@@ -22,50 +28,81 @@
    
     
     var test =new Vue({
-        el:"#canvas",
+        el:"#all",
         data:{
-            datas : [
-            {name:'短袖', value:120},
-            {name:'休闲裤', value:1222},
-            {name:'连衣裙', value:1283},
-            {name:'外套', value:1314},
-            {name:'羽绒服', value:1314}
-            ],
+            // datas : [
+            // {department:'董事局', num:12},
+            // {department:'技术部', num:12},
+            // {department:'财务部', num:10},
+            // {department:'人事部', num:20},
+            // ],
+            datas : [],
+            deptableData:[],
          },
          methods:{
              getDatas(){
-                window.datass=this.datas;
-                console.log(window.datass);
+                // window.datass=this.datas;
+                // console.log(window.datass);
              },
-             sChart(){
-                new sChart('canvas', 'ring', this.datas, {
-                    title: '某商店各商品年度销量',
+             sChart1(){
+                new sChart('canvas', 'ring', this.deptableData, {
+                    
                     bgColor: '#ffffff',
-                    titleColor: '#222222',
+                    titleColor: '#3788ee',
                     legendColor: '#222222'
                 });
+                // console.log(this.deptableData);
+                
              },
-             //获取数据
-            // getusers() {
-            //     const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
+             sChart2(){
+                new sChart('canvas2', 'line', this.datas, {
+                    
+                    bgColor: '#ffffff',
+                    titleColor: '#3788ee',
+                    legendColor: '#222222'
+                }); 
+             },
+            getdepData() {
+                const that = this;
+                
+                axios.get("http://localhost:8080/DepartmentServlet").then(function(res) {
+                    that.deptableData = res.data;
+                    that.sChart1();
+                })
+            },
+            getwageData(){
+                const that = this;
+                
+                axios.get("http://localhost:8080/WageServlet?flag=4").then(function(res) {
+                    // that.datas = res.data;
+                    console.log(res.data);
+                    
+                   for(let index in res.data){
+                       var arrObj ={
+                        department:res.data[index].department,
+                        num:res.data[index].salary
+                    };
+                       that.datas.push(arrObj) ;
+                   }
 
-            //     axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
-            //         for (let key in that.tableDataKeys){
-            //             // console.log(key);
-            //             that.tableDataKeys[key] = res.data[0][key];
-            //         }
-            //         that.arrs = that.tableDataKeys.titles.split('-');
-            //         // console.log(that.arrs);
-            //         // console.log(res.data[0]);
-            //     })
-            // },
+                    console.log(that.datas);
+                    that.sChart2();
+                })
+                
+            }
 
          },
+    
+        mounted() {
+            this.getdepData();
+            this.getwageData();
+            // this.sChart();
+        }
          
         
     });
-    test.getDatas();   
-    test.sChart();
+    
+    
     
     
 

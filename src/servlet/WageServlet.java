@@ -103,6 +103,14 @@ public class WageServlet extends HttpServlet {
                 }
                 out.print(jsonObj);
                 break;
+            case 4:
+                list = wageDao.getAllWages();
+                jsonObj = new JSONArray();
+                for (int i = 0; i < list.size(); i++) {
+                    jsonObj.add(list.get(i));
+                }
+                out.print(jsonObj);
+                break;
         }
         out.flush();
         out.close();
