@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/manageStaff.css">
+    <link rel="stylesheet" href="public/css/manageWage.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            工资管理
+        </div>
+        <div class="search">
+            <p></p>
+            <p class="conditions">
+                <select name="" class="departmentSelect">
+                    <option value=-1>--所有部门--</option>
+                    <option v-for="item in deps" v-text="item"></option>
+                </select>
+                <span class="id">选择日期 (年/月)：</span>
+                <select>
+                    <option v-for="item in years" v-text="item"></option>
+                </select>（年）
+                <select>
+                    <option v-for="item in mouths" v-text="item"></option>
+                </select>（月）
+            </p>
+            <p class="conditions">
+                <span class="name">姓名：</span>
+                <input type="text" v-model="employeesName">
+                <span class="id">工号：</span>
+                <input type="text" v-model="employeesID">
+                <button @click="search()">搜索</button>
+            </p>
+        </div>
+        <div class="content">
+            <div class="operation">
+                <button class="getNewTable" @click="outPutWages()">导出工资单</button>
+            </div>
+            <div class="myTable">
+                <table class="wageTable">
+                    <thead>
+                        <tr>
+                            <th v-for="item in th" v-text="item"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in wages">
+                            <td v-for="i in keys" v-text="item[i]"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

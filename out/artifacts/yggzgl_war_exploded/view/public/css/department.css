@@ -29,6 +29,10 @@ table tbody tr:hover {
     background-color: #a8c3f8
 }
 
+table tbody .active {
+    background-color: #a8c3f8
+}
+
 table tr,
 table thead,
 table tfoot {
@@ -110,6 +114,7 @@ button {
     font-weight: bold;
     margin-left: 5px;
     width: 70px;
+    height: 35px;
 }
 
 table button {
@@ -123,6 +128,28 @@ table button {
     height: 35px;
 }
 
+.dep_table p button {
+    width: 150px;
+}
+
+tfoot td input {
+    width: 80%;
+    text-align: center;
+    border-color: coral
+}
+
+tfoot button {
+    background-color: coral
+}
+
 .dep_rules .upRuleBtn {
     padding-top: 20px;
+}
+
+.rule_table table tbody {
+    max-height: 200px;
+}
+
+.depTable table tbody {
+    max-height: 230px;
 }

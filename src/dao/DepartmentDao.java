@@ -36,4 +36,49 @@ public class DepartmentDao {
         }
         return list;
     }
+
+    public List<String> getDepsName(){
+        String sql = "select department from department";
+        List<String> deps = new ArrayList<>();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()){
+                String dep = rs.getString("department");
+                deps.add(dep);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return deps;
+    }
+
+    public int inserOrUpdateDep(String sql){
+        int row = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            row = pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  row;
+    }
+
+    public int deleteDep(String sql){
+        int row = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            row = pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  row;
+    }
+
+    //删除部门时 删除该部门所有员工
+//    public void deleteUser(){
+//
+//    }
 }

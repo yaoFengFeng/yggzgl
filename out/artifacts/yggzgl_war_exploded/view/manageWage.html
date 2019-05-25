@@ -18,24 +18,6 @@
         <div class="top">
             工资管理
         </div>
-        <div class="search">
-            <select name="" class="departmentSelect">
-                <option value=-1>--所有部门--</option>
-                <option v-for="item in deps" v-text="item"></option>
-            </select>
-            <p></p>
-            <p class="conditions">
-                <!-- <span class="name">姓名：</span>
-                <input type="text" v-model="employeesName"> -->
-                <span class="id">选择日期 (年/月)：</span>
-                <select>
-                    <option v-for="item in years" v-text="item"></option>
-                </select>（年）
-                <select>
-                    <option v-for="item in mouths" v-text="item"></option>
-                </select>（月）
-            </p>
-        </div>
         <div class="content">
             <div class="operation">
                 <button class="getNewTable" @click="makeWageData()">生成新工资表</button>

@@ -21,8 +21,9 @@
         </div>
         <div class="search">
             <select name="" class="departmentSelect" @change="change">
-                        <option v-for="(option,index) in options" v-text="option.text"  ></option>
-                    </select>
+                <option>--所有部门--</option>
+                    <option v-for="option in options" v-text="option"></option>
+                </select>
             <button class="importBtn" @click="showM()">导入员工信息 </button>
             <p class="conditions">
                 <span class="name">姓名：</span>

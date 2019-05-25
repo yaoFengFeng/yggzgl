@@ -64,7 +64,7 @@ public class WageServlet extends HttpServlet {
                             wage.setBasic_years_salary(Float.parseFloat(map.get(basic_years_salary))*user.getServiceTime());
                             wage.setCount(wage.getBasicSalary()+wage.getBonus()+wage.getBasic_years_salary());
                             Date d = new Date();
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
                             String date = sdf.format(d);
                             wage.setDate(date);
                             wage.setName(user.getUsername());
