@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/formDetails.css">
+    <script src="public/js/sChart.js"></script>
+    <script src="public/vue.js"></script>
+</head>
+<body>
+    <div class="chartsMain">
+        <canvas id="canvas" width="730px" height="420px"></canvas>
+    </div>
+    
+    
+
+</body>
+</html>
+<script>
+   
+    
+    var test =new Vue({
+        el:"#canvas",
+        data:{
+            datas : [
+            {name:'短袖', value:120},
+            {name:'休闲裤', value:1222},
+            {name:'连衣裙', value:1283},
+            {name:'外套', value:1314},
+            {name:'羽绒服', value:1314}
+            ],
+         },
+         methods:{
+             getDatas(){
+                window.datass=this.datas;
+                console.log(window.datass);
+             },
+             sChart(){
+                new sChart('canvas', 'ring', this.datas, {
+                    title: '某商店各商品年度销量',
+                    bgColor: '#ffffff',
+                    titleColor: '#222222',
+                    legendColor: '#222222'
+                });
+             },
+             //获取数据
+            // getusers() {
+            //     const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
+
+            //     axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
+            //         for (let key in that.tableDataKeys){
+            //             // console.log(key);
+            //             that.tableDataKeys[key] = res.data[0][key];
+            //         }
+            //         that.arrs = that.tableDataKeys.titles.split('-');
+            //         // console.log(that.arrs);
+            //         // console.log(res.data[0]);
+            //     })
+            // },
+
+         },
+         
+        
+    });
+    test.getDatas();   
+    test.sChart();
+    
+    
+
+
+        
+</script>

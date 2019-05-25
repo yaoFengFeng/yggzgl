@@ -14,7 +14,10 @@ public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=utf-8");
+
+//        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("Content-Type","text/html;charset=utf-8");
         HttpSession session = request.getSession();
         System.out.println("alhff");
         if (session.getAttribute("id") == null || session.getAttribute("id") == "" ){

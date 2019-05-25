@@ -1,0 +1,18 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-color: #f3f6f8;
+}
+
+
+.chartsMain{
+    background-color: rgb(43, 53, 53);
+    padding: 30px;
+    display: inline-block;
+}
+
+#canvas{
+    border-radius: 5px;
+}
