@@ -3,7 +3,23 @@ package entity;
 public class Wage {
     private int id;
     private String department,title,name,others,date,userID,note;
-    private float basicSalary,bonus;
+    private float basicSalary,bonus,basic_years_salary,count;
+
+    public float getCount() {
+        return count;
+    }
+
+    public void setCount(float count) {
+        this.count = count;
+    }
+
+    public float getBasic_years_salary() {
+        return basic_years_salary;
+    }
+
+    public void setBasic_years_salary(float basic_years_salary) {
+        this.basic_years_salary = basic_years_salary;
+    }
 
     public String getUserID() {
         return userID;
