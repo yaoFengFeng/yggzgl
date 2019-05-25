@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -222,4 +223,182 @@
     }
 </script>
 
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>系统管理页</title>
+    <link href="view/public/css/login.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="view/public/css/home.css">
+    <script src="view/public/vue.js"></script>
+    <script src="view/public/axios.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            <div class="topLeft">
+                <span>员工工资管理</span>
+            </div>
+            <div class="topRight">
+                <span class="loginMsg">欢迎：<label v-text="username"></label></span>
+                <span class="loginMsg" @click="exit()">退出登录</span>
+            </div>
+        </div>
+
+        <div class="main">
+            <div class="navLeft">
+                <span class="nowTimes">{{realTime}}</span>
+                <ul class="my_ui">
+                    <li v-for="(tab,i) in lis" @click="toIfream(tab,i)" :class="{'bg':tab.showBg}"><i :class="tab.icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{tab.text}}
+                    </li>
+                </ul>
+            </div>
+            <div class="iframe">
+                <iframe :src="iframes[iframeIndex]"></iframe>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+    window.onload = function() {
+        var vm = new Vue({
+            el: '.all',
+            data: {
+                realTime: 'abc',
+                active: true,
+                bg: '',
+                iframeIndex: 0,
+                lis: [{
+                    icon: 'fas fa-home',
+                    text: '主页',
+                    showBg: true
+                }, {
+                    icon: 'fas fa-apple-alt',
+                    text: '部门管理',
+                    showBg: false
+                }, {
+                    icon: 'fas fa-apple-alt',
+                    text: '员工管理',
+                    showBg: false
+                }, {
+                    icon: 'fas fa-apple-alt',
+                    text: '工资单修改',
+                    showBg: false
+                }, {
+                    icon: 'fas fa-apple-alt',
+                    text: '工资管理',
+                    showBg: false
+                }, {
+                    icon: 'far fa-address-card',
+                    text: '个人信息',
+                    showBg: false
+                }, {
+                    icon: 'far fa-comments',
+                    text: '发布消息',
+                    showBg: false
+                }],
+                iframes: [
+                    'view/homeChild.html',
+                    'view/departmentManagement.html',
+                    'view/manageStaff.html',
+                    'view/manageStaff.html',
+                    'view/SalaryManagement.html',
+                    'view/personal.html',
+                    'view/manageStaff.html',
+                ],
+                username: "132"
+            },
+            created: function() {
+                const that = this;
+                axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
+                    that.username = res.data[0].username;
+                    console.log(that.username);
+                })
+            },
+
+            mounted() {
+                // 页面加载完后显示当前时间
+                this.realTime = this.dealWithTime(new Date());
+                // 定时刷新时间
+                let _this = this;
+                // 定时器
+                this.timer = setInterval(function() {
+                    _this.realTime = _this.dealWithTime(new Date()) // 修改数据date
+                }, 1000)
+            },
+            methods: {
+                toIfream(tab, i) {
+                    this.lis.forEach(function(item) {
+                        item.showBg = false;
+                    });
+                    this.iframeIndex = i;
+                    tab.showBg = true;
+                },
+
+                //    定时器
+                dealWithTime(data) {
+                    let formatDateTime;
+                    let Y = data.getFullYear();
+                    let M = data.getMonth() + 1;
+                    let D = data.getDate();
+                    let H = data.getHours();
+                    let Min = data.getMinutes();
+                    let S = data.getSeconds();
+                    let W = data.getDay();
+                    H = H < 10 ? ('0' + H) : H;
+                    Min = Min < 10 ? ('0' + Min) : Min;
+                    S = S < 10 ? ('0' + S) : S;
+                    switch (W) {
+                        case 0:
+                            W = '天';
+                            break;
+                        case 1:
+                            W = '一';
+                            break;
+                        case 2:
+                            W = '二';
+                            break;
+                        case 3:
+                            W = '三';
+                            break;
+                        case 4:
+                            W = '四';
+                            break;
+                        case 5:
+                            W = '五';
+                            break;
+                        case 6:
+                            W = '六';
+                            break;
+                        default:
+                            break
+                    }
+                    formatDateTime = Y + '年' + M + '月' + D + '日 ' + H + ':' + Min + ':' + S + ' 星期' + W
+                    return formatDateTime;
+                },
+                exit() {
+                    window.location.href = 'http://localhost:8080/ExitServlet';
+                }
+            },
+            destroyed() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                }
+
+            }
+        })
+    }
+</script>
+
+>>>>>>> b31c07121632f0c6bf411fdd933892c29ef22770
 </html>

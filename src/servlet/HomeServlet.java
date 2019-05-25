@@ -1,7 +1,4 @@
 package servlet;
-
-import com.mysql.cj.Session;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +19,13 @@ public class HomeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setHeader("Content-Type","text/html;charset=utf-8");
         HttpSession session = request.getSession();
-        if (session.getAttribute("id") == null){
+        System.out.println("alhff");
+        if (session.getAttribute("id") == null || session.getAttribute("id") == "" ){
             request.getRequestDispatcher("/view/error403.html").forward(request,response);
+            return;
         }else{
+            System.out.println(session.getAttribute("id"));
+            System.out.println("怎么回事");
             request.getRequestDispatcher("/view/home.html").forward(request,response);
         }
     }

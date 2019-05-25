@@ -1,0 +1,128 @@
+/* 部门管理样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+}
+
+table {
+    border-spacing: 0px;
+    width: 100%;
+    border-right: 1px solid rgb(192, 192, 192);
+    border-bottom: 1px solid rgb(192, 192, 192);
+    max-height: 500px;
+    text-align: center
+}
+
+table tbody {
+    display: block;
+    width: 100%;
+    max-height: 450px;
+    overflow-y: scroll;
+}
+
+table tbody tr:hover {
+    background-color: #a8c3f8
+}
+
+table tr,
+table thead,
+table tfoot {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table thead,
+table tfoot {
+    width: calc( 100% - 17px)
+}
+
+table thead th {
+    background: #ebebeb;
+}
+
+table td,
+th {
+    height: 35px;
+    border-left: 1px solid rgb(192, 192, 192);
+    border-top: 1px solid rgb(192, 192, 192);
+}
+
+.top {
+    width: 100%;
+    height: 40px;
+    font-size: 20px;
+    color: #6699ff;
+    line-height: 40px;
+    padding-left: 15px;
+    margin: 15px;
+    font-weight: bold;
+    border-bottom: 1px solid #3498db;
+    /* box-shadow: gray 0px 1px 1px; */
+}
+
+.dep_bottom {
+    padding: 10px 30px;
+}
+
+.rule_table {
+    padding: 20px
+}
+
+.rule_table label {
+    margin-left: left 15px;
+}
+
+select,
+input {
+    height: 30px;
+    width: 100px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(99, 66, 150, 0.2);
+    margin-right: 15px;
+    padding-left: 10px
+}
+
+select {
+    width: 150px;
+}
+
+.dep_table {
+    margin-top: 30px
+}
+
+.depTable {
+    padding: 25px
+}
+
+button {
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 5px;
+    width: 70px;
+}
+
+table button {
+    font-size: 15px;
+    height: 30px;
+}
+
+.dep_rules button {
+    width: 120px;
+    border-radius: 10px;
+    height: 35px;
+}
+
+.dep_rules .upRuleBtn {
+    padding-top: 20px;
+}
