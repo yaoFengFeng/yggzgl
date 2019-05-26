@@ -88,7 +88,6 @@ window.onload = function() {
                         that.tableData = res.data
                     })
                 }
-
             },
             search() {
                 const that = this;

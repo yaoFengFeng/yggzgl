@@ -20,7 +20,7 @@
         </div>
         <div class="content">
             <div class="operation">
-                <button class="getNewTable" @click="makeWageData()">生成新工资表</button>
+                <button class="getNewTable" @click="makeWageData()">生成本月工资</button>
                 <button class="insertNewTable" @click="insertWageData()">确定工资表</button>
             </div>
             <div class="myTable">
@@ -32,11 +32,30 @@
                     </thead>
                     <tbody>
                         <tr v-for="(item,index) in wages">
-                            <td v-for="i in keys" v-text="item[i]"></td>
+                            <!-- 其它或者备注可编辑 即input输入框 其中others只能输入数字 -->
+                            <td v-for="i in keys" v-if="i == 'others'">
+                                <input type="number" v-model="item[i]" class="tdInput" @change="updateCount(index)" @contextmenu.prevent="rightShow(index)">
+                            </td>
+                            <!-- count 用v-model绑定 方便others改变时自动更改值（不可编辑） -->
+                            <td v-else-if="i == 'count'">
+                                <input type="text" v-model="item[i]" readonly="readonly">
+                            </td>
+                            <!-- 备注主要是 others的说明 -->
+                            <td v-else-if="i == 'note'">
+                                <input type="text" v-model="item[i]" @contextmenu.prevent="rightShow(index)">
+                            </td>
+                            <td v-text="item[i]" v-else></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="tfoot">
+                <button @click="updateWage()" class="updateWageBtn">提交修改</button>
+            </div>
+            <ul id="myul">
+                <li @click="toall">应用到全部</li>
+                <li @click="unshoeUl">取消</li>
+            </ul>
         </div>
     </div>
 </body>

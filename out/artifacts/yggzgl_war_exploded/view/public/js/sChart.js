@@ -125,7 +125,7 @@
             this.ctx.strokeStyle = this.fillColor;
             for (var i = 0; i < this.dataLength; i++) {
                 this.data[i].left = this.leftPadding + this.xLength * (i + 0.25);
-                this.data[i].top = this.height - this.bottomPadding - this.data[i].value * this.yRatio;
+                this.data[i].top = this.height - this.bottomPadding - parseInt(this.data[i].num) * this.yRatio;
                 this.data[i].right = this.leftPadding + this.xLength * (i + 0.75);
                 this.data[i].bottom = this.height - this.bottomPadding;
 
@@ -151,7 +151,7 @@
                 if (this.showValue) {
                     this.ctx.font = 12 * this.dpi + 'px Arial'
                     this.ctx.fillText(
-                        this.data[i].value,
+                        parseInt(this.data[i].num),
                         this.data[i].left + this.xLength / 4,
                         this.data[i].top - 5
                     );
@@ -171,7 +171,7 @@
                 this.ctx.fillStyle = this.colorList[i];
                 this.ctx.moveTo(x, y);
                 this.data[i].start = i === 0 ? -Math.PI / 2 : this.data[i - 1].end;
-                this.data[i].end = this.data[i].start + this.data[i].value / this.totalValue * 2 * Math.PI;
+                this.data[i].end = this.data[i].start + parseInt(this.data[i].num) / this.totalValue * 2 * Math.PI;
                 // 绘制扇形
                 this.ctx.arc(x, y, this.radius, this.data[i].start, this.data[i].end);
                 this.ctx.closePath();
@@ -190,7 +190,7 @@
                     this.ctx.moveTo(x + x1 + 10, y - y1 - 10);
                     this.ctx.lineTo(x + x1 + this.radius / 2, y - y1 - 10);
                     this.ctx.stroke();
-                    this.ctx.fillText(this.data[i].value, x + x1 + 5 + this.radius / 2, y - y1 - 5);
+                    this.ctx.fillText(parseInt(this.data[i].num), x + x1 + 5 + this.radius / 2, y - y1 - 5);
                 } else if (this.data[i].middle > 0 && this.data[i].middle <= Math.PI / 2) {
                     this.ctx.textAlign = 'left';
                     this.ctx.moveTo(x + x1, y + y1);
@@ -198,7 +198,7 @@
                     this.ctx.moveTo(x + x1 + 10, y + y1 + 10);
                     this.ctx.lineTo(x + x1 + this.radius / 2, y + y1 + 10);
                     this.ctx.stroke();
-                    this.ctx.fillText(this.data[i].value, x + x1 + 5 + this.radius / 2, y + y1 + 15);
+                    this.ctx.fillText(parseInt(this.data[i].num), x + x1 + 5 + this.radius / 2, y + y1 + 15);
                 } else if (this.data[i].middle > Math.PI / 2 && this.data[i].middle < Math.PI) {
                     this.ctx.textAlign = 'right';
                     this.ctx.moveTo(x - x1, y + y1);
@@ -206,7 +206,7 @@
                     this.ctx.moveTo(x - x1 - 10, y + y1 + 10);
                     this.ctx.lineTo(x - x1 - this.radius / 2, y + y1 + 10);
                     this.ctx.stroke();
-                    this.ctx.fillText(this.data[i].value, x - x1 - 5 - this.radius / 2, y + y1 + 15);
+                    this.ctx.fillText(parseInt(this.data[i].num), x - x1 - 5 - this.radius / 2, y + y1 + 15);
                 } else {
                     this.ctx.textAlign = 'right';
                     this.ctx.moveTo(x - x1, y - y1);
@@ -214,7 +214,7 @@
                     this.ctx.moveTo(x - x1 - 10, y - y1 - 10);
                     this.ctx.lineTo(x - x1 - this.radius / 2, y - y1 - 10);
                     this.ctx.stroke();
-                    this.ctx.fillText(this.data[i].value, x - x1 - 5 - this.radius / 2, y - y1 - 5);
+                    this.ctx.fillText(parseInt(this.data[i].num), x - x1 - 5 - this.radius / 2, y - y1 - 5);
                 }
             }
             // 如果类型是环形图，绘制一个内圆
@@ -249,7 +249,7 @@
             this.ctx.textAlign = 'center';
             this.ctx.fillStyle = this.axisColor;
             for (var i = 0; i < this.dataLength; i++) {
-                var name = this.data[i].name;
+                var name = this.data[i].department;
                 var xlen = this.xLength * (i + 1);
                 this.ctx.moveTo(this.leftPadding + xlen + 0.5, this.height - this.bottomPadding + 0.5);
                 this.ctx.lineTo(this.leftPadding + xlen + 0.5, this.height - this.bottomPadding + 5.5);
@@ -307,7 +307,7 @@
                 this.ctx.fillStyle = this.legendColor;
                 this.ctx.font = 12 * this.dpi + 'px Microsoft YaHei';
                 this.ctx.textAlign = 'left';
-                this.ctx.fillText(this.data[i].name, 35, this.legendTop + 10 + 15 * i * this.dpi);
+                this.ctx.fillText(this.data[i].department, 35, this.legendTop + 10 + 15 * i * this.dpi);
             }
         },
         /**
@@ -318,9 +318,9 @@
         getYFictitious: function (data) {
             var arr = data.slice(0);
             arr.sort(function (a, b) {
-                return -(a.value - b.value);
+                return -(parseInt(a.num) - parseInt(b.num));
             });
-            var len = Math.ceil(arr[0].value / this.yEqual);
+            var len = Math.ceil(parseInt(arr[0].num) / this.yEqual);
             var pow = len.toString().length - 1;
             pow = pow > 2 ? 2 : pow;
             return Math.ceil(len / Math.pow(10, pow)) * Math.pow(10, pow);
@@ -332,7 +332,7 @@
         getTotalValue: function () {
             var total = 0;
             for (var i = 0; i < this.dataLength; i++) {
-                total += this.data[i].value;
+                total += parseInt(this.data[i].num);
             }
             return total;
         }

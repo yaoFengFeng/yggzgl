@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="public/css/manageStaff.css">
     <link rel="stylesheet" href="public/css/manageWage.css">
+    <link rel="stylesheet" href="public/css/manageStaff.css">
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
+    <script src="public/js/historyWage.js"></script>
 </head>
 
 <body>
@@ -20,15 +21,15 @@
         <div class="search">
             <p></p>
             <p class="conditions">
-                <select name="" class="departmentSelect">
+                <select name="" class="departmentSelect" @change="depChange">
                     <option value=-1>--所有部门--</option>
                     <option v-for="item in deps" v-text="item"></option>
                 </select>
                 <span class="id">选择日期 (年/月)：</span>
-                <select>
+                <select @change="yearChange">
                     <option v-for="item in years" v-text="item"></option>
                 </select>（年）
-                <select>
+                <select @change="dateChange">               
                     <option v-for="item in mouths" v-text="item"></option>
                 </select>（月）
             </p>
@@ -57,6 +58,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <span>总计：{{count}} (元)</span>
             </div>
         </div>
     </div>

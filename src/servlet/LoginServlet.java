@@ -34,10 +34,10 @@ public class LoginServlet extends HttpServlet {
         user.setPsd(request.getParameter("psd"));
         String sql;
         if (flag == 0){
-            sql = "select * from admin where id = ? and password= ?";
+            sql = "select * from admin where user_id = ? and password= ?";
             back = 1;
         }else if (flag == 1){
-            sql = "select * from depadmin where id = ? and password= ?";
+            sql = "select * from depadmin where user_id = ? and password= ?";
             back = 2;
         }else{
             sql = "select * from users where id = ? and psd= ?";

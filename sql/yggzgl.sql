@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : ayf
+ Source Server         : local
  Source Server Type    : MySQL
  Source Server Version : 100136
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 25/05/2019 10:07:30
+ Date: 25/05/2019 17:17:23
 */
 
 SET NAMES utf8mb4;
@@ -53,7 +53,7 @@ CREATE TABLE `department`  (
 -- ----------------------------
 INSERT INTO `department` VALUES (1001, '董事局', 12, '1234654');
 INSERT INTO `department` VALUES (1002, '技术部', 15, '4564879');
-INSERT INTO `department` VALUES (1003, '财务部', 8, '45679811');
+INSERT INTO `department` VALUES (1003, '财务部', 58, '45679811');
 INSERT INTO `department` VALUES (1004, '人事部', 19, '12348785');
 
 -- ----------------------------
@@ -99,19 +99,23 @@ CREATE TABLE `users`  (
   `in_the_time` datetime(0) DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `describes` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `titles` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('10014', '安耀锋', '123456', '男', NULL, 3, '152581110000', '技术部', '工程师', '温州商学院F1-703', NULL, ' ', ' ');
-INSERT INTO `users` VALUES ('10016', '张三', '123456', '男', NULL, 1, '78945646664', '人事部', '职工', '滨海路12号', NULL, ' ', ' ');
-INSERT INTO `users` VALUES ('10020', '小邓', '123456', '男', NULL, 5, '15258671111', '技术部', '助理', '滨海路16号', NULL, '休假（带薪）', ' ');
-INSERT INTO `users` VALUES ('10021', '谢逊', '123456', '女', NULL, 2, '27752572725', '人事部', '助理', '滨海路17号', NULL, '休假（带薪）', ' ');
-INSERT INTO `users` VALUES ('10024', '周芷若', '123456', '女', NULL, 2, '12458787877', '董事局', '总经理', '滨海路20号', NULL, ' ', ' ');
-INSERT INTO `users` VALUES ('10025', '张无忌', '123456', '男', NULL, 2, '15258671111', '技术部', '经理', '滨海路21号', NULL, ' ', ' ');
-INSERT INTO `users` VALUES ('10026', '赵敏', '123456', '女', NULL, 2, '15258671111', '人事部', '工程师', '滨海路22号', NULL, '休假（带薪）', ' ');
+INSERT INTO `users` VALUES ('10014', '安耀锋', '123456', '男', NULL, 3, '15258111000', '技术部', '工程师', '温州商学院F1-703', NULL, ' ', ' ', '', 'ayf@163.com', '天真开朗-乐观');
+INSERT INTO `users` VALUES ('10016', '张三', '123456', '男', NULL, 1, '78945646664', '人事部', '职工', '滨海路12号', NULL, ' ', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10020', '小邓', '123456', '男', NULL, 5, '15258671111', '技术部', '助理', '滨海路16号', NULL, '休假（带薪）', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10021', '谢逊', '123456', '女', NULL, 2, '27752572725', '人事部', '助理', '滨海路17号', NULL, '休假（带薪）', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10024', '周芷若', '123456', '女', NULL, 2, '12458787877', '董事局', '总经理', '滨海路20号', NULL, ' ', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10025', '张无忌', '123456', '男', NULL, 2, '15258671111', '技术部', '经理', '滨海路21号', NULL, ' ', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10026', '赵敏', '123456', '女', NULL, 2, '15258671111', '人事部', '工程师', '滨海路22号', NULL, '休假（带薪）', ' ', NULL, NULL, NULL);
+INSERT INTO `users` VALUES ('10027', '蒋佩凯', '123456', '男', NULL, 1, '15957759696', '技术部', '实习生', '温州商学院F1-703', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for wage
