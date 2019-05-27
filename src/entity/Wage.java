@@ -2,8 +2,8 @@ package entity;
 
 public class Wage {
     private int id;
-    private String department,title,name,others,date,userID,note;
-    private float basicSalary,bonus,basic_years_salary,count;
+    private String department,title,name,date,userID,note;
+    private float basicSalary,bonus,basic_years_salary,count,others;
 
     public float getCount() {
         return count;
@@ -45,11 +45,11 @@ public class Wage {
         this.date = date;
     }
 
-    public String getOthers() {
+    public float getOthers() {
         return others;
     }
 
-    public void setOthers(String others) {
+    public void setOthers(float others) {
         this.others = others;
     }
 

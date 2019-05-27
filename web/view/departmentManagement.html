@@ -21,16 +21,23 @@
             <div class="dep_rules">
                 <p><b>工资标准  </b>({{depName}})</p>
                 <div class="rule_table">
-                    <select @change="titleChange">
-                        <option v-for="(item,index) in alltitles" v-if="item.departmentName == depName" v-text="item.title"></option>
-                    </select>
-                    <label>基本工资：</label>
-                    <input type="text" v-model="alltitles[titleIndex].basicSalary">
-                    <label>奖金：</label>
-                    <input type="text" v-model="alltitles[titleIndex].bonus">
-                    <label>工龄工资：</label>
-                    <input type="text" v-model="alltitles[titleIndex].basic_years_salary">
-                    <div class="upRuleBtn"><button @click="upRule">上传标准</button></div>
+                    <table>
+                        <thead>
+                            <th>职称</th>
+                            <th>基本工资</th>
+                            <th>奖金</th>
+                            <th>工龄工资</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in alltitles" v-if="item.departmentName == depName">
+                                <td v-text="alltitles[index].title"></td>
+                                <td v-text="alltitles[index].basicSalary"></td>
+                                <td v-text="alltitles[index].bonus"></td>
+                                <td v-text="alltitles[index].basic_years_salary"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="upRuleBtn"><button @click="upRule">上传标准</button></div> -->
                 </div>
             </div>
 
@@ -50,15 +57,31 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tr v-for="(item,index) in deptableData" @click="depChange(item.department)">
-                            <td v-text="item.id"></td>
-                            <td v-text="item.department"></td>
-                            <td v-text="item.num"></td>
-                            <td v-text="item.phone"></td>
+                        <tbody>
+                            <tr v-for="(item,index) in deptableData" @click="depChange(item.department,index)" :class="{active:index == num}">
+                                <td v-text="item.id"></td>
+                                <td v-text="item.department"></td>
+                                <td v-text="item.num"></td>
+                                <td v-text="item.phone"></td>
+                                <td>
+                                    <button @click="deleteDep(index)">删除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <td></td>
                             <td>
-                                <button>删除</button>
+                                <input type="text" placeholder="输入名称" v-model="inputDepName">
                             </td>
-                        </tr>
+                            <td></td>
+                            <td>
+                                <input type="text" placeholder="输入电话" v-model="inputDepPhone">
+                            </td>
+                            <td>
+                                <button @click="insertDep">添加</button>
+                                <button @click="undoinsertDep">取消</button>
+                            </td>
+                        </tfoot>
                     </table>
                 </div>
             </div>

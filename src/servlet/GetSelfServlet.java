@@ -23,19 +23,20 @@ public class GetSelfServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        UserDao userDao = new UserDao();
-        List<Map<String, String>> res;
-        HttpSession session = request.getSession();
-        String id = session.getAttribute("id").toString();
-        String str = " id = '"+id+"'";
-        res = userDao.getUser(str);
         PrintWriter out = response.getWriter(); //这里有坑 上面的编码设置一定要在这句话前面 不然中文会乱码
-        JSONArray jsonObj = new JSONArray();
-        for (int i = 0; i < res.size(); i++) {
-            jsonObj.add(res.get(i));
-        }
-        out.print(jsonObj);
-        out.flush();
-        out.close();
+        HttpSession session = request.getSession();
+            UserDao userDao = new UserDao();
+            List<Map<String, String>> res;
+            String id = session.getAttribute("id").toString();
+            String str = " id = '"+id+"'";
+            res = userDao.getUser(str);
+            JSONArray jsonObj = new JSONArray();
+            for (int i = 0; i < res.size(); i++) {
+                jsonObj.add(res.get(i));
+            }
+            out.print(jsonObj);
+            out.flush();
+            out.close();
+
     }
 }

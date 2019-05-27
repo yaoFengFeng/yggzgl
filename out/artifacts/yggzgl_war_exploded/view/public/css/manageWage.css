@@ -3,6 +3,10 @@
     width: 150px !important;
 }
 
+.wageTable {
+    max-height: 550px !important;
+}
+
 .wageTable th {
     background-color: #ebebeb;
     height: 40px;
@@ -13,4 +17,37 @@
     text-align: center;
     height: 35px;
     line-height: 35px
+}
+
+
+/* .tfoot {
+    margin-top: 20px;
+} */
+
+.updateWageBtn {
+    width: 80px;
+    height: 35px
+}
+
+ul {
+    color: gray;
+    background-color: white;
+    position: fixed;
+    display: none;
+    list-style: none;
+    border: 1px solid gray
+}
+
+ul li:hover {
+    cursor: pointer;
+}
+
+.myTable span {
+    display: block;
+    background-color: orange;
+    color: white;
+    height: 35px;
+    line-height: 35px;
+    font-size: 15px;
+    width: 130px
 }

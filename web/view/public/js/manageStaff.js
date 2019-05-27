@@ -27,15 +27,7 @@ window.onload = function() {
                 { key: 'note', val: "备注" }
             ],
 
-            options: [
-                { text: "---所有部门---" },
-                { text: "人事部" },
-                { text: "财务部" },
-                { text: "技术部" },
-                { text: "销售部" },
-                { text: "监察部" },
-                { text: "后勤部" }
-            ],
+            options: [],
             titles: [
                 { text: "" },
                 { text: "经理" },
@@ -78,6 +70,13 @@ window.onload = function() {
                     }
                 })
             },
+            getdeps() {
+                const that = this;
+                axios.get('/DepartmentServlet?flag=3').then(function(res) {
+                    that.options = res.data;
+                    console.log(that.options);
+                })
+            },
             //监听 select改变 获取index  ele.target.value获取值
             change(ele) {
                 const that = this;
@@ -89,7 +88,6 @@ window.onload = function() {
                         that.tableData = res.data
                     })
                 }
-
             },
             search() {
                 const that = this;
@@ -225,6 +223,9 @@ window.onload = function() {
                     that.getusers();
                 });
             }
+        },
+        mounted() {
+            this.getdeps();
         }
     });
 

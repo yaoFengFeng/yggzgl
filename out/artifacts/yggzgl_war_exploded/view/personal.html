@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="public/css/personal.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
 </head>
@@ -49,22 +48,21 @@
                     <div class="tab-content">
                         <div class="tab-items">
                             <span>基本设置</span>
-                            
+
                         </div>
-                                                  
-
-
-                      
-
                     </div>
 
                 </div>
-                <div class="right-detail" >
-                    
+                <div class="right-detail">
+
                     <div class="detail-name">
                         <div class="detail-div">
                             <label>姓名</label>
+<<<<<<< HEAD
+                            <input type="text" v-model="tableDataKeys.username" maxlength="10" v-on:input="inputName">
+=======
                             <input type="text" v-model="tableDataKeys.username" maxlength="10"  v-on:input="inputName" >
+>>>>>>> cf1adf62d2d3b31e0525da4ecd4d6ba6819759cf
                             <div class="name-error">
                                 {{nameerror}}
                             </div>
@@ -122,16 +120,15 @@
                     </div>
                     <div class="detail-title">
                         <div class="detail-div">
-
-
                             <p>
                                 <label>标签</label>
                                 <div class="title-items">
                                     <input type="text" v-model="addtitle" v-on:blur.prevent="addText()" />
 
-                                    <p><div v-for="(item,index) in arrTitle">
-                                        <span @click="addTag(item.title)">{{item.title}}</span>
-                                    </div>
+                                    <p>
+                                        <div v-for="(item,index) in arrTitle">
+                                            <span @click="addTag(item.title)">{{item.title}}</span>
+                                        </div>
                                     </p>
                                 </div>
                             </p>
@@ -148,29 +145,39 @@
                                     <span>返回</span>
                                 </button>
                             </div>
-
-
                         </div>
-
                     </div>
-                   
-
                 </div>
-
             </div>
         </div>
-        
     </div>
 </body>
 
 </html>
 
 <script>
-    var test =new Vue({
+    var test = new Vue({
         el: "#root",
         data: {
             //印象标签
             // arr:[],
+<<<<<<< HEAD
+            arrsString: "",
+            arrs: [],
+            addtitle: "",
+            arrTitle: [{
+                title: '天真开朗'
+            }, {
+                title: '乐观'
+            }, {
+                title: '可爱'
+            }],
+            newname: "your name",
+            newdescribe: "执着于理想，纯粹于当下",
+            newemail: "jpk960123@163.com",
+            newphone: "15957759696",
+            newaddress: "浙江温州",
+=======
             arrsString:"",
             arrs:[],
             addtitle:"",
@@ -180,39 +187,39 @@
                 { title:'可爱' }
             ],
 
+>>>>>>> cf1adf62d2d3b31e0525da4ecd4d6ba6819759cf
             nameerror: "",
             emailerror: "",
             phoneerror: "",
 
-            tableDataKeys:
-                {
-                    id:"",
-                    username:"",
-                    describes:"",
-                    email:"",
-                    phone:"",
-                    department :"",
-                    title:"",
-                    address:"",
-                    titles:"",
-                }
+            tableDataKeys: {
+                id: "",
+                username: "",
+                describes: "",
+                email: "",
+                phone: "",
+                department: "",
+                title: "",
+                address: "",
+                titles: "",
+            }
 
         },
         methods: {
             //添加标签
-            addText:function(){
+            addText: function() {
                 // if(this.in_array(this.addtitle,this.arr)){
                 //     this.error="标签已经存在！";
                 // }else{
-                if(this.addtitle!=""){
+                if (this.addtitle != "") {
                     // this.arr.push({"tag":this.addtitle});
                     this.arrs.push(this.addtitle);
                 }
-                    this.addtitle="";
+                this.addtitle = "";
                 // }
 
             },
-            addTag:function(item){
+            addTag: function(item) {
                 console.log(item);
 
                 // this.arr.push({"tag":item});
@@ -221,13 +228,13 @@
 
             },
             //点击删除标签
-            removeTag:function(index){
+            removeTag: function(index) {
                 // this.arr.splice(index,1);
-                this.arrs.splice(index,1);
+                this.arrs.splice(index, 1);
 
             },
             // 保存
-            save(){
+            save() {
                 // console.log(this.arrs);
                 // console.log(this.tableDataKeys);
 
@@ -238,7 +245,7 @@
                 for (let key in this.tableDataKeys) {
                     let str1 = this.tableDataKeys[key];
                     // console.log(str1);
-                    if(!this.tableDataKeys[key]){
+                    if (!this.tableDataKeys[key]) {
                         str1 = "";
                     }
                     str += key + " = '" + str1 + "',";
@@ -252,9 +259,8 @@
             //获取数据
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
-
                 axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
-                    for (let key in that.tableDataKeys){
+                    for (let key in that.tableDataKeys) {
                         // console.log(key);
                         that.tableDataKeys[key] = res.data[0][key];
                     }
@@ -265,17 +271,37 @@
             },
             // 姓名验证
             inputName() {
+<<<<<<< HEAD
+                if (this.newname.length == 10) {
+                    this.nameerror = "姓名长度不能超过10"
+                } else {
+                    this.nameerror = ""
+=======
                 if (this.tableDataKeys.username.length == 10) {
                     this.nameerror = "姓名长度不能超过10";
 
                 }
                 else {
                     this.nameerror = "";
+>>>>>>> cf1adf62d2d3b31e0525da4ecd4d6ba6819759cf
                 }
             },
             // 手机号码验证
             verifyPhone() {
                 var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+<<<<<<< HEAD
+
+                if (this.newphone == '') {
+                    alert("请输入手机号码");
+                    this.$refs.phone.focus();
+                } else if (!reg.test(this.newphone)) {
+
+                    this.phoneerror = "手机格式不正确"
+                    this.$refs.phone.focus();
+
+                } else {
+                    this.phoneerror = ""
+=======
                
                 if (this.tableDataKeys.phone == '') {
 
@@ -291,28 +317,34 @@
                 }else{
                     this.phoneerror = "";
 
+>>>>>>> cf1adf62d2d3b31e0525da4ecd4d6ba6819759cf
                 }
                 
 
             },
             // 邮箱验证
-            verifyEmail(){
+            verifyEmail() {
                 var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/;
                 if (this.tableDataKeys.email == '') {
 
                     this.emailerror = "请输入邮箱";
                     this.$refs.email.focus();
+<<<<<<< HEAD
+                } else if (!reg.test(this.newemail)) {
+
+                    this.emailerror = "邮箱格式不正确"
+=======
                 } else if (!reg.test(this.tableDataKeys.email)) {
                    
                     this.emailerror = "邮箱格式不正确";
+>>>>>>> cf1adf62d2d3b31e0525da4ecd4d6ba6819759cf
                     this.$refs.email.focus();
-                    
-                }else{
+
+                } else {
                     this.emailerror = ""
                 }
             }
         }
     });
     test.getusers();
-
 </script>
