@@ -29,3 +29,13 @@ body{
     padding: 30px;
     
 }
+.frame-footer{
+    color: rgba(0,0,0,.45);
+    
+    height: 100px;
+    text-align: center;
+}
+.copyright{
+    padding: 130px 0 30px;
+    width: 100%;
+}

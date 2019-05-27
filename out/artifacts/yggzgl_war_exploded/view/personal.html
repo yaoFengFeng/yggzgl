@@ -17,7 +17,7 @@
     <div class="c-content" id="root">
         <div class="left-card">
             <div class="left-content">
-                <p style="margin:auto;width:100px;height:100px;background-color: lightcoral"></p>
+                <div style="text-align: center;"><img src="public/images/boy.png" style="margin: auto;width:100px;height:100px"></div>
                 <p class="left-name" id="left-name">{{tableDataKeys.username}}</p>
                 <p class="left-font">{{tableDataKeys.describes}}</p>
                 <div class="left-information">
@@ -283,7 +283,7 @@
                     this.$refs.phone.focus();
 
                 } else if (!reg.test(this.tableDataKeys.phone)) {
-                   
+                    
                     this.phoneerror = "手机格式不正确";
                     this.$refs.phone.focus();
 

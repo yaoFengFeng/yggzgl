@@ -20,7 +20,7 @@
     float: left;
     width: 200px;
     height: 100%;
-    text-align: left;
+    text-align: center;
     border-right: 0px solid gray;
 }
 
@@ -58,6 +58,7 @@
 }
 .nowTimes{
     text-align: center;
+    color: rgb(247, 157, 22);
 }
 .main .navLeft {
     height: 100%;
