@@ -78,7 +78,7 @@ body{
 }
 .botborder{
     border-bottom: 3px solid #3788ee;
-    transition: left .2s ease-in-out 1s;
+    
 }
 .right-detail{
     padding: 30px;
