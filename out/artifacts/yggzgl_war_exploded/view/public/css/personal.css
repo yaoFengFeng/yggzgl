@@ -74,7 +74,11 @@ body{
     width: 80px;
     font-size: 18px;
     color: #3788ee;
+    /* border-bottom: 3px solid #3788ee; */
+}
+.botborder{
     border-bottom: 3px solid #3788ee;
+    transition: left .2s ease-in-out 1s;
 }
 .right-detail{
     padding: 30px;

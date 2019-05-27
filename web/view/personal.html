@@ -51,18 +51,18 @@
                 <div class="right-tab">
                     <div class="tab-content">
 
-                        <div class="tab-items" v-on:click="qh(true)">
+                        <div class="tab-items" v-on:click="qh(true)" :class="{'botborder':active1}">
                             <span>基本设置</span>
 
                         </div>
-                        <div class="tab-items" v-on:click="qh(false)">
+                        <div class="tab-items" v-on:click="qh(false)" :class="{'botborder':active2}">
                             <span>安全设置</span>
 
                         </div>
                     </div>
 
                 </div>
-                <div class="right-detail" v-if="temp">
+                <div class="right-detail" v-if="temp" >
 
                     <div class="detail-name">
                         <div class="detail-div">
@@ -156,15 +156,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="right-detail" v-if="!temp">
-                    <div class="detail-describe">
+                <div class="right-detail" v-if="!temp" >
+                    
                         <div class="detail-div">
                             <label>新的密码</label>
                             <input type="password" v-model="tablePassword.fNewPwd" maxlength="20">
                         </div>
 
-                    </div>
-                    <div class="detail-email">
+                   
+                   
                         <div class="detail-div">
 
                             <label>确认密码</label>
@@ -175,16 +175,14 @@
                                 </span>
 
                         </div>
-                    </div>
+                    
                     <div class="detail-div">
 
                             <div class="buttons">
                                 <button :class="" ref="buttonStyle" @click="setPwd" :disabled="isDisabled">
                                     <span>保存</span>
                                 </button>
-                                <button>
-                                    <span>返回</span>
-                                </button>
+                                
                             </div>
                         </div>
                 </div>
@@ -231,7 +229,9 @@
                 
                 fNewPwd: "",
                 sNewPwd: "",
-            }
+            },
+            active1:true,
+            active2:false,
 
 
         },
@@ -249,6 +249,7 @@
                         console.log("is same");
                         this.isDisabled = false;
                         this.$refs.buttonStyle.style.backgroundColor = "#3788ee";
+                        this.$refs.secondPwd.style.border="none";
                         this.$refs.secondPwd.style.border="3px solid #37e837";
                         this.$refs.pwderror.style.color="#37e837";
                         this.pwderror="√"
@@ -273,8 +274,20 @@
         methods: {
             // tabitems 切换
             qh: function (t) {
-                console.log(t);
+                
                 this.temp = t
+                if(!t){
+                    // this.$refs.firstItem.style.border ="none" ;
+                    // console.log(this.$refs.firstItem.style.border);
+                    // this.$refs.secondItem.style.border ="3px solid #3788ee";
+                    this.active2=true;
+                    this.active1=false;
+                }else{
+                    // this.$refs.firstItem.style.border ="3px solid #3788ee";
+                    // this.$refs.secondItem.style.border ="none";
+                    this.active1=true;
+                    this.active2=false;
+                }
             },
             //添加标签
             addText: function () {
@@ -327,24 +340,23 @@
                 console.log(str);
             },
             // 修改密码    ---未完成
-            // setPwd() {
+            setPwd() {
                 
 
-            //     let str = "update users set ";
-            //     for (let key in this.tableDataKeys) {
-            //         let str1 = this.tableDataKeys[key];
-            //         // console.log(str1);
-            //         if (!this.tableDataKeys[key]) {
-            //             str1 = "";
-            //         }
-            //         str += key + " = '" + str1 + "',";
-            //     }
-            //     str = str.substr(0, str.length - 1) + " where id = '" + this.tableDataKeys['id'] + "'";
-            //     axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function () {
-            //         alert("修改成功");
-            //     });
+                let str = "update users set psd = " + this.tablePassword.sNewPwd +" where id = '" + this.tableDataKeys.id + "'";
+                console.log(str);
+                axios.post('http://localhost:8080/GetSelfServlet?str=' + str).then(function (res) {
+                    if(res.data){
+                        alert("修改成功");
+                    
+                    }else{
+                        alert("网络繁忙");
+                    }
+                
+                    
+                });
             //     console.log(str);
-            // },
+            },
             //获取数据
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
