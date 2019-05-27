@@ -53,17 +53,28 @@ window.onload = function() {
                 }]
             ],
             iframes: [
-                'view/formDetails.html',
-                'view/departmentManagement.html',
-                'view/manageStaff.html',
-                'view/historyWage.html',
-                'view/manageWage.html',
-                'view/personal.html',
-                'view/manageStaff.html',
+                [
+                    'view/formDetails.html',
+                    'view/departmentManagement.html',
+                    'view/manageStaff.html',
+                    'view/historyWage.html',
+                    'view/manageWage.html',
+                    'view/personal.html',
+                    'view/manageStaff.html',
+                ],
+                [
+                    'view/formDetails.html',
+                    'view/departmentManagement.html',
+                    'view/manageStaff.html',
+                    'view/historyWage.html',
+                    'view/manageWage.html'
+                ],
+                ['view/formDetails.html', 'view/myHistoryWage.html', 'view/personal.html']
             ],
             username: "",
             type: 2,
-            active: 0
+            active: 0,
+            dep: ""
         },
         created: function() {
             const that = this;

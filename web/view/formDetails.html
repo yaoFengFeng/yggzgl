@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,102 +11,96 @@
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
 </head>
+
 <body>
     <div id="all">
-    <div class="chartsMain">
-        <p class="chartTitle">公司各部门人数分布</p>
-        <canvas id="canvas" width="730px" height="420px"></canvas>
-    </div>
-    <div class="chartsMain">
+        <div class="chartsMain">
+            <p class="chartTitle">公司各部门人数分布</p>
+            <canvas id="canvas" width="730px" height="420px"></canvas>
+        </div>
+        <div class="chartsMain">
             <p class="chartTitle">各部门工资统计</p>
             <canvas id="canvas2" width="630px;" height="420px"></canvas>
         </div>
     </div>
 
 </body>
+
 </html>
 <script>
-   
-    
-    var test =new Vue({
-        el:"#all",
-        data:{
+    var test = new Vue({
+        el: "#all",
+        data: {
             // datas : [
             // {department:'董事局', num:12},
             // {department:'技术部', num:12},
             // {department:'财务部', num:10},
             // {department:'人事部', num:20},
             // ],
-            datas : [],
-            deptableData:[],
-         },
-         methods:{
-             getDatas(){
+            datas: [],
+            deptableData: [],
+        },
+        methods: {
+            getDatas() {
                 // window.datass=this.datas;
                 // console.log(window.datass);
-             },
-             sChart1(){
+            },
+            sChart1() {
                 new sChart('canvas', 'ring', this.deptableData, {
-                    
+
                     bgColor: '#ffffff',
                     titleColor: '#3788ee',
                     legendColor: '#222222'
                 });
                 // console.log(this.deptableData);
-                
-             },
-             sChart2(){
+
+            },
+            sChart2() {
                 new sChart('canvas2', 'line', this.datas, {
-                    
+
                     bgColor: '#ffffff',
                     titleColor: '#3788ee',
                     legendColor: '#222222'
-                }); 
-             },
+                });
+            },
             getdepData() {
                 const that = this;
-                
+
                 axios.get("http://localhost:8080/DepartmentServlet").then(function(res) {
                     that.deptableData = res.data;
+                    console.log(that.deptableData);
                     that.sChart1();
                 })
             },
-            getwageData(){
+            getwageData() {
                 const that = this;
-                
+
                 axios.get("http://localhost:8080/WageServlet?flag=4").then(function(res) {
                     // that.datas = res.data;
                     console.log(res.data);
-                    
-                   for(let index in res.data){
-                       var arrObj ={
-                        department:res.data[index].department,
-                        num:res.data[index].salary
-                    };
-                       that.datas.push(arrObj) ;
-                   }
+
+                    for (let index in res.data) {
+                        var arrObj = {
+                            department: res.data[index].department,
+                            num: res.data[index].salary
+                        };
+                        that.datas.push(arrObj);
+                    }
 
                     console.log(that.datas);
                     that.sChart2();
                 })
-                
+
             }
 
-         },
-    
+        },
+
         mounted() {
             this.getdepData();
             this.getwageData();
             // this.sChart();
         }
-         
-        
+
+
     });
-    
-    
-    
-    
-
-
-        
 </script>

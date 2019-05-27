@@ -214,7 +214,4 @@ public class WageDao {
         }
         return list;
     }
-
-
-
 }

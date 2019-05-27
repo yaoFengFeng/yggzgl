@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -141,6 +142,19 @@ public class WageServlet extends HttpServlet {
                 break;
             case 6:
                 sql = request.getParameter("str");
+                list = wageDao.getWageBySQL(sql);
+                jsonObj = new JSONArray();
+                for (int i = 0; i < list.size(); i++) {
+                    jsonObj.add(list.get(i));
+                }
+                out.print(jsonObj);
+                break;
+            case 7:
+                String s = request.getParameter("str");
+                HttpSession session =  request.getSession();
+                String id = session.getAttribute("id").toString();
+                sql = "select * from all_wage where user_id = '"+id+"'"+ s;
+                System.out.println(sql);
                 list = wageDao.getWageBySQL(sql);
                 jsonObj = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {

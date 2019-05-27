@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/manageWage.css">
+    <link rel="stylesheet" href="public/css/manageStaff.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/myHistoryWage.js"></script>
+</head>
+<style>
+    .search {
+        height: 60px;
+        margin-left: 30px;
+        padding: 0px
+    }
+</style>
+
+<body>
+    <div class="all">
+        <div class="top">
+            工资管理
+        </div>
+        <div class="search">
+            <p class="conditions">
+                <span class="id">选择日期 (年/月)：</span>
+                <select @change="yearChange">
+                    <option v-for="item in years" v-text="item"></option>
+                </select>（年）
+                <select @change="dateChange">               
+                    <option v-for="item in mouths" v-text="item"></option>
+                </select>（月）
+            </p>
+        </div>
+        <div class="content">
+            <div class="operation">
+                <button class="getNewTable" @click="outPutWages()">导出工资单</button>
+            </div>
+            <div class="myTable">
+                <table class="wageTable">
+                    <thead>
+                        <tr>
+                            <th v-for="item in th" v-text="item"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item,index) in wages">
+                            <td v-for="i in keys" v-text="item[i]"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span>总计：{{count}} (元)</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
