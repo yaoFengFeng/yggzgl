@@ -69,8 +69,13 @@
             },
             getdepData() {
                 const that = this;
+<<<<<<< HEAD
 
                 axios.get("http://localhost:8080/DepartmentServlet?flag=1").then(function(res) {
+=======
+                
+                axios.get("http://localhost:8080/DepartmentServlet?flag=4").then(function(res) {
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
                     that.deptableData = res.data;
                     console.log(that.deptableData);
                     that.sChart1();

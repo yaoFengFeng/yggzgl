@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : local
+ Source Server         : ayf
  Source Server Type    : MySQL
  Source Server Version : 100136
  Source Host           : localhost:3306
@@ -11,11 +11,28 @@
  Target Server Version : 100136
  File Encoding         : 65001
 
- Date: 25/05/2019 17:17:23
+ Date: 27/05/2019 10:06:41
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES (1, '10014', '123456', '安耀锋');
 
 -- ----------------------------
 -- Table structure for all_wage
@@ -32,9 +49,50 @@ CREATE TABLE `all_wage`  (
   `bonus` float(10, 2) DEFAULT NULL COMMENT '奖金',
   `basic_years_salary` float(10, 2) DEFAULT NULL COMMENT '工龄工资 工龄*工作时间',
   `others` float(10, 2) DEFAULT NULL COMMENT '其他',
+  `count` float(10, 2) DEFAULT NULL COMMENT '总计',
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of all_wage
+-- ----------------------------
+INSERT INTO `all_wage` VALUES (1, '2019-04', '技术部', '10014', '安耀锋', '工程师', 4000.00, 800.00, 0.00, NULL, 4800.00, NULL);
+INSERT INTO `all_wage` VALUES (2, '2019-04', '人事部', '10016', '张三', '职工', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (3, '2019-04', '技术部', '10020', '小邓', '助理', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (4, '2019-04', '人事部', '10021', '谢逊', '助理', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (5, '2019-04', '董事局', '10024', '周芷若', '总经理', 8000.00, 2000.00, 0.00, NULL, 10000.00, NULL);
+INSERT INTO `all_wage` VALUES (6, '2019-04', '技术部', '10025', '张无忌', '经理', 5000.00, 1000.00, 0.00, NULL, 6000.00, NULL);
+INSERT INTO `all_wage` VALUES (7, '2019-04', '人事部', '10026', '赵敏', '工程师', 6000.00, 500.00, 0.00, NULL, 6500.00, NULL);
+INSERT INTO `all_wage` VALUES (8, '2019-04', '技术部', '10027', '蒋佩凯', '实习生', 3000.00, 500.00, 0.00, NULL, 3500.00, NULL);
+INSERT INTO `all_wage` VALUES (9, '2019-05', '技术部', '10014', '安耀锋', '工程师', 4000.00, 800.00, 0.00, 200.00, 5000.00, '高温');
+INSERT INTO `all_wage` VALUES (10, '2019-05', '人事部', '10016', '张三', '职工', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (11, '2019-05', '技术部', '10020', '小邓', '助理', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (12, '2019-05', '人事部', '10021', '谢逊', '助理', 2000.00, 500.00, 0.00, NULL, 2500.00, NULL);
+INSERT INTO `all_wage` VALUES (13, '2019-05', '董事局', '10024', '周芷若', '总经理', 8000.00, 2000.00, 0.00, NULL, 10000.00, NULL);
+INSERT INTO `all_wage` VALUES (14, '2019-05', '技术部', '10025', '张无忌', '经理', 5000.00, 1000.00, 0.00, -50.00, 5950.00, '打游戏');
+INSERT INTO `all_wage` VALUES (15, '2019-05', '人事部', '10026', '赵敏', '工程师', 6000.00, 500.00, 0.00, NULL, 6500.00, NULL);
+INSERT INTO `all_wage` VALUES (16, '2019-05', '技术部', '10027', '蒋佩凯', '实习生', 3000.00, 500.00, 0.00, NULL, 3500.00, NULL);
+
+-- ----------------------------
+-- Table structure for depadmin
+-- ----------------------------
+DROP TABLE IF EXISTS `depadmin`;
+CREATE TABLE `depadmin`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `depment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of depadmin
+-- ----------------------------
+INSERT INTO `depadmin` VALUES (1, '10016', '张三', '123456', '人事部');
+INSERT INTO `depadmin` VALUES (2, '10020', '小邓', '123456', '技术部');
+INSERT INTO `depadmin` VALUES (3, '10024', '周芷若', '123456', '董事局');
 
 -- ----------------------------
 -- Table structure for department
@@ -68,18 +126,19 @@ CREATE TABLE `rules`  (
   `bonus` float(10, 2) DEFAULT NULL COMMENT '奖金',
   `basic_years_salary` float(10, 2) DEFAULT NULL COMMENT '工龄工资',
   PRIMARY KEY (`id`, `department`, `title`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of rules
 -- ----------------------------
-INSERT INTO `rules` VALUES (6, '技术部', '经理', 5000.00, 1000.00, 800.00);
-INSERT INTO `rules` VALUES (7, '技术部', '工程师', 4000.00, 800.00, 600.00);
+INSERT INTO `rules` VALUES (6, '技术部', '经理', 5000.00, 1000.00, 0.00);
+INSERT INTO `rules` VALUES (7, '技术部', '工程师', 4000.00, 800.00, 0.00);
 INSERT INTO `rules` VALUES (8, '技术部', '助理', 2000.00, 500.00, 0.00);
-INSERT INTO `rules` VALUES (9, '董事局', '总经理', 8000.00, 2000.00, 0.00);
 INSERT INTO `rules` VALUES (10, '人事部', '工程师', 6000.00, 500.00, 0.00);
 INSERT INTO `rules` VALUES (11, '人事部', '职工', 2000.00, 500.00, 0.00);
 INSERT INTO `rules` VALUES (12, '人事部', '助理', 2000.00, 500.00, 0.00);
+INSERT INTO `rules` VALUES (13, '董事局', '总经理', 8000.00, 2000.00, 0.00);
+INSERT INTO `rules` VALUES (14, '技术部', '实习生', 3000.00, 500.00, 0.00);
 
 -- ----------------------------
 -- Table structure for users
@@ -135,24 +194,18 @@ CREATE TABLE `wage`  (
   `count` float(10, 0) DEFAULT NULL COMMENT '总计',
   `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 163 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of wage
 -- ----------------------------
-INSERT INTO `wage` VALUES (149, '2019-05-25', '技术部', '10014', '安耀锋', '工程师', 4000.00, 800.00, 1800.00, NULL, 6600, NULL);
-INSERT INTO `wage` VALUES (150, '2019-05-25', '人事部', '10016', '张三', '职工', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (151, '2019-05-25', '技术部', '10020', '小邓', '助理', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (152, '2019-05-25', '人事部', '10021', '谢逊', '助理', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (153, '2019-05-25', '董事局', '10024', '周芷若', '总经理', 8000.00, 2000.00, 0.00, NULL, 10000, NULL);
-INSERT INTO `wage` VALUES (154, '2019-05-25', '技术部', '10025', '张无忌', '经理', 5000.00, 1000.00, 1600.00, NULL, 7600, NULL);
-INSERT INTO `wage` VALUES (155, '2019-05-25', '人事部', '10026', '赵敏', '工程师', 6000.00, 500.00, 0.00, NULL, 6500, NULL);
-INSERT INTO `wage` VALUES (156, '2019-05-25', '技术部', '10014', '安耀锋', '工程师', 4000.00, 800.00, 1800.00, NULL, 6600, NULL);
-INSERT INTO `wage` VALUES (157, '2019-05-25', '人事部', '10016', '张三', '职工', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (158, '2019-05-25', '技术部', '10020', '小邓', '助理', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (159, '2019-05-25', '人事部', '10021', '谢逊', '助理', 2000.00, 500.00, 0.00, NULL, 2500, NULL);
-INSERT INTO `wage` VALUES (160, '2019-05-25', '董事局', '10024', '周芷若', '总经理', 8000.00, 2000.00, 0.00, NULL, 10000, NULL);
-INSERT INTO `wage` VALUES (161, '2019-05-25', '技术部', '10025', '张无忌', '经理', 5000.00, 1000.00, 1600.00, NULL, 7600, NULL);
-INSERT INTO `wage` VALUES (162, '2019-05-25', '人事部', '10026', '赵敏', '工程师', 6000.00, 500.00, 0.00, NULL, 6500, NULL);
+INSERT INTO `wage` VALUES (9, '2019-05', '技术部', '10014', '安耀锋', '工程师', 4000.00, 800.00, 0.00, 200.00, 5000, '高温费200');
+INSERT INTO `wage` VALUES (10, '2019-05', '人事部', '10016', '张三', '职工', 2000.00, 500.00, 0.00, 200.00, 2700, '高温费200');
+INSERT INTO `wage` VALUES (11, '2019-05', '技术部', '10020', '小邓', '助理', 2000.00, 500.00, 0.00, 200.00, 2700, '高温费200');
+INSERT INTO `wage` VALUES (12, '2019-05', '人事部', '10021', '谢逊', '助理', 2000.00, 500.00, 0.00, 200.00, 2700, '高温费200');
+INSERT INTO `wage` VALUES (13, '2019-05', '董事局', '10024', '周芷若', '总经理', 8000.00, 2000.00, 0.00, 200.00, 10200, '高温费200');
+INSERT INTO `wage` VALUES (14, '2019-05', '技术部', '10025', '张无忌', '经理', 5000.00, 1000.00, 0.00, 200.00, 6200, '高温费200');
+INSERT INTO `wage` VALUES (15, '2019-05', '人事部', '10026', '赵敏', '工程师', 6000.00, 500.00, 0.00, 200.00, 6700, '高温费200');
+INSERT INTO `wage` VALUES (16, '2019-05', '技术部', '10027', '蒋佩凯', '实习生', 3000.00, 500.00, 0.00, 200.00, 3700, '高温费200');
 
 SET FOREIGN_KEY_CHECKS = 1;

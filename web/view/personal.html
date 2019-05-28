@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="public/css/personal.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
 </head>
@@ -16,13 +17,17 @@
     <div class="c-content" id="root">
         <div class="left-card">
             <div class="left-content">
-                <div style="text-align: center;"><img src="public/images/boy.png" style="margin: auto;width:100px;height:100px"></div>
+                <div style="text-align: center;"><img src="public/images/boy.png"
+                        style="margin: auto;width:100px;height:100px"></div>
                 <p class="left-name" id="left-name">{{tableDataKeys.username}}</p>
                 <p class="left-font">{{tableDataKeys.describes}}</p>
                 <div class="left-information">
                     <p><span><i class="far fa-envelope"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.email}}</span></p>
-                    <p><span><i class="fas fa-award"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.department}} · {{tableDataKeys.title}}</span></p>
-                    <p><span><i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.address}}</span></p>
+                    <p><span><i class="fas fa-award"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.department}} ·
+                            {{tableDataKeys.title}}</span></p>
+                    <p><span><i
+                                class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{tableDataKeys.address}}</span>
+                    </p>
                 </div>
 
                 <hr style="margin-top:50px;margin-bottom:10px;">
@@ -36,7 +41,6 @@
                                 <i class="fas fa-times"></i>
                             </span>
 
-
                         </div>
                     </p>
                 </div>
@@ -46,14 +50,19 @@
             <div class="right-content">
                 <div class="right-tab">
                     <div class="tab-content">
-                        <div class="tab-items">
+
+                        <div class="tab-items" v-on:click="qh(true)" :class="{'botborder':active1}">
                             <span>基本设置</span>
+
+                        </div>
+                        <div class="tab-items" v-on:click="qh(false)" :class="{'botborder':active2}">
+                            <span>安全设置</span>
 
                         </div>
                     </div>
 
                 </div>
-                <div class="right-detail">
+                <div class="right-detail" v-if="temp" >
 
                     <div class="detail-name">
                         <div class="detail-div">
@@ -75,7 +84,8 @@
                         <div class="detail-div">
 
                             <label>邮箱</label>
-                            <input type="email" v-model="tableDataKeys.email" ref="email" v-on:blur.prevent="verifyEmail" maxlength="20">
+                            <input type="email" v-model="tableDataKeys.email" ref="email"
+                                v-on:blur.prevent="verifyEmail" maxlength="20">
                             <div class="name-error">
                                 {{emailerror}}
                             </div>
@@ -85,7 +95,8 @@
                         <div class="detail-div">
 
                             <label>电话</label>
-                            <input type="text" v-model="tableDataKeys.phone" ref="phone" v-on:blur.prevent="verifyPhone" maxlength="11">
+                            <input type="text" v-model="tableDataKeys.phone" ref="phone" v-on:blur.prevent="verifyPhone"
+                                maxlength="11">
                             <div class="name-error">
                                 {{phoneerror}}
                             </div>
@@ -95,7 +106,8 @@
                         <div class="detail-div">
 
                             <label>部门</label>
-                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled" v-model="tableDataKeys.department">
+                            <input title="此项无法修改,请联系管理员!" type="read" disabled="disabled"
+                                v-model="tableDataKeys.department">
 
                         </div>
                     </div>
@@ -111,7 +123,7 @@
                         <div class="detail-div">
 
                             <label>地址</label>
-                            <input type="text" v-model="tableDataKeys.address">
+                            <input type="text" v-model="tableDataKeys.address" maxlength="20">
                         </div>
                     </div>
                     <div class="detail-title">
@@ -119,7 +131,7 @@
                             <p>
                                 <label>标签</label>
                                 <div class="title-items">
-                                    <input type="text" v-model="addtitle" v-on:blur.prevent="addText()" />
+                                    <input type="text" v-model="addtitle" v-on:blur.prevent="addText()" maxlength="5" />
 
                                     <p>
                                         <div v-for="(item,index) in arrTitle">
@@ -134,7 +146,7 @@
                         <div class="detail-div">
 
                             <div class="buttons">
-                                <button :class="" @click="save">
+                                <button :class="" ref="buttonStyle" @click="save" :disabled="isDisabled">
                                     <span>保存</span>
                                 </button>
                                 <button>
@@ -143,6 +155,36 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="right-detail" v-if="!temp" >
+                    
+                        <div class="detail-div">
+                            <label>新的密码</label>
+                            <input type="password" v-model="tablePassword.fNewPwd" maxlength="20">
+                        </div>
+
+                   
+                   
+                        <div class="detail-div">
+
+                            <label>确认密码</label>
+                            <input type="password" v-model="tablePassword.sNewPwd"  ref="secondPwd"
+                                maxlength="20">
+                                <span class="password-error" ref="pwderror">
+                                        {{pwderror}}
+                                </span>
+
+                        </div>
+                    
+                    <div class="detail-div">
+
+                            <div class="buttons">
+                                <button :class="" ref="buttonStyle" @click="setPwd" :disabled="isDisabled">
+                                    <span>保存</span>
+                                </button>
+                                
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>
@@ -157,6 +199,7 @@
         data: {
             //印象标签
             // arr:[],
+<<<<<<< HEAD
             arrsString: "",
             arrs: [],
             addtitle: "",
@@ -168,10 +211,23 @@
                 title: '可爱'
             }],
 
+=======
+            temp: true,
+            arrsString: "",
+            arrs: [],
+            addtitle: "",
+            arrTitle: [
+                { title: '天真开朗' },
+                { title: '乐观' },
+                { title: '可爱' }
+            ],
+            saveButton: "保存",
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
             nameerror: "",
             emailerror: "",
             phoneerror: "",
-
+            pwderror:"请输入小于10位数的新密码",
+            isDisabled: false,
             tableDataKeys: {
                 id: "",
                 username: "",
@@ -182,8 +238,16 @@
                 title: "",
                 address: "",
                 titles: "",
-            }
+            },
+            tablePassword: {
+                
+                fNewPwd: "",
+                sNewPwd: "",
+            },
+            active1:true,
+            active2:false,
 
+<<<<<<< HEAD
         },
         // 保存按钮 不可点击
         computed: {
@@ -191,9 +255,66 @@
 
             }
         },
+=======
+
+        },
+        // 监听确认密码
+        watch:{
+            'tablePassword.sNewPwd':function(val,oldval){
+                    if(this.tablePassword.sNewPwd!=this.tablePassword.fNewPwd){
+                        console.log("not same");
+                        this.isDisabled = true;
+                        this.$refs.buttonStyle.style.backgroundColor = "red";
+                        this.$refs.secondPwd.style.border="3px solid red";
+                        this.$refs.pwderror.style.color="red";
+                        this.pwderror="两次密码输入不相同"
+                    }else{
+                        console.log("is same");
+                        this.isDisabled = false;
+                        this.$refs.buttonStyle.style.backgroundColor = "#3788ee";
+                        this.$refs.secondPwd.style.border="none";
+                        this.$refs.secondPwd.style.border="3px solid #37e837";
+                        this.$refs.pwderror.style.color="#37e837";
+                        this.pwderror="√"
+                    }
+                }
+                
+            
+        },
+        // 监听按钮 不可点击
+        // watch: {
+        //     saveButton() {
+        //         if (this.nameerror != "" || this.emailerror != "" || this.phoneerror != "") {
+        //             this.isDisabled = true;
+        //             this.$refs.buttonStyle.backgroundColor = "red";
+        //         }
+        //         else {
+        //             this.isDisabled = false;
+        //             this.$refs.buttonStyle.backgroundColor = "#3788ee";
+        //         }
+        //     }
+        // },
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
         methods: {
+            // tabitems 切换
+            qh: function (t) {
+                
+                this.temp = t
+                if(!t){
+                    // this.$refs.firstItem.style.border ="none" ;
+                    // console.log(this.$refs.firstItem.style.border);
+                    // this.$refs.secondItem.style.border ="3px solid #3788ee";
+                    this.active2=true;
+                    this.active1=false;
+                }else{
+                    // this.$refs.firstItem.style.border ="3px solid #3788ee";
+                    // this.$refs.secondItem.style.border ="none";
+                    this.active1=true;
+                    this.active2=false;
+                }
+            },
             //添加标签
-            addText: function() {
+            addText: function () {
                 // if(this.in_array(this.addtitle,this.arr)){
                 //     this.error="标签已经存在！";
                 // }else{
@@ -205,7 +326,7 @@
                 // }
 
             },
-            addTag: function(item) {
+            addTag: function (item) {
                 console.log(item);
 
                 // this.arr.push({"tag":item});
@@ -214,12 +335,12 @@
 
             },
             //点击删除标签
-            removeTag: function(index) {
+            removeTag: function (index) {
                 // this.arr.splice(index,1);
                 this.arrs.splice(index, 1);
 
             },
-            // 保存
+            // 保存信息
             save() {
                 // console.log(this.arrs);
                 // console.log(this.tableDataKeys);
@@ -237,15 +358,33 @@
                     str += key + " = '" + str1 + "',";
                 }
                 str = str.substr(0, str.length - 1) + " where id = '" + this.tableDataKeys['id'] + "'";
-                axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function() {
+                axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function () {
                     alert("修改成功");
                 });
                 console.log(str);
             },
+            // 修改密码    ---未完成
+            setPwd() {
+                
+
+                let str = "update users set psd = " + this.tablePassword.sNewPwd +" where id = '" + this.tableDataKeys.id + "'";
+                console.log(str);
+                axios.post('http://localhost:8080/GetSelfServlet?str=' + str).then(function (res) {
+                    if(res.data){
+                        alert("修改成功");
+                    
+                    }else{
+                        alert("网络繁忙");
+                    }
+                
+                    
+                });
+            //     console.log(str);
+            },
             //获取数据
             getusers() {
                 const that = this; //axois 中无法直接访问Vue对象（this） 这里先将this赋值给常量 that
-                axios.get('http://localhost:8080/GetSelfServlet').then(function(res) {
+                axios.get('http://localhost:8080/GetSelfServlet').then(function (res) {
                     for (let key in that.tableDataKeys) {
                         // console.log(key);
                         that.tableDataKeys[key] = res.data[0][key];
@@ -259,8 +398,19 @@
             inputName() {
                 if (this.tableDataKeys.username.length == 10) {
                     this.nameerror = "姓名长度不能超过10";
+<<<<<<< HEAD
                 } else {
                     this.nameerror = "";
+=======
+                    this.isDisabled = true;
+                    this.$refs.buttonStyle.style.backgroundColor = "red";
+
+                }
+                else {
+                    this.nameerror = "";
+                    this.isDisabled = false;
+                    this.$refs.buttonStyle.style.backgroundColor = "#3788ee";
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
                 }
             },
             // 手机号码验证
@@ -271,15 +421,24 @@
 
                     this.phoneerror = "请输入手机号码";
                     this.$refs.phone.focus();
+                    this.isDisabled = true;
+                    this.$refs.buttonStyle.style.backgroundColor = "red";
 
                 } else if (!reg.test(this.tableDataKeys.phone)) {
 
                     this.phoneerror = "手机格式不正确";
                     this.$refs.phone.focus();
+                    this.isDisabled = true;
+                    this.$refs.buttonStyle.style.backgroundColor = "red";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
                 } else {
                     this.phoneerror = "";
+                    this.isDisabled = false;
+                    this.$refs.buttonStyle.style.backgroundColor = "#3788ee";
 
                 }
 
@@ -292,13 +451,22 @@
 
                     this.emailerror = "请输入邮箱";
                     this.$refs.email.focus();
+<<<<<<< HEAD
+=======
+                    this.isDisabled = true;
+                    this.$refs.buttonStyle.style.backgroundColor = "red";
+>>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
                 } else if (!reg.test(this.tableDataKeys.email)) {
 
                     this.emailerror = "邮箱格式不正确";
                     this.$refs.email.focus();
+                    this.isDisabled = true;
+                    this.$refs.buttonStyle.style.backgroundColor = "red";
 
                 } else {
-                    this.emailerror = ""
+                    this.emailerror = "";
+                    this.isDisabled = false;
+                    this.$refs.buttonStyle.style.backgroundColor = "#3788ee";
                 }
             },
 

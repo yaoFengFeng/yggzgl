@@ -55,6 +55,14 @@ public class DepartmentServlet extends HttpServlet {
                 jsonObj.add(list.get(i));
             }
             out.print(jsonObj);
+        }else if (flag == 4){
+            DepartmentDao departmentDao = new DepartmentDao();
+            List<Map<String,String>> list = departmentDao.getDepartmentNums();
+            JSONArray jsonObj = new JSONArray();
+            for (int i = 0; i < list.size(); i++) {
+                jsonObj.add(list.get(i));
+            }
+            out.print(jsonObj);
         }
 
         out.flush();

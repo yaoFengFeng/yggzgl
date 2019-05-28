@@ -36,7 +36,26 @@ public class DepartmentDao {
         }
         return list;
     }
+    public List<Map<String,String>> getDepartmentNums() {
+        List<Map<String, String>> list = new ArrayList<>();
+        String sql = "select department,count(*) as num  from users group by department";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            Map<String, String> map;
+            while (rs.next()) {
+                map = new HashMap<>();
 
+                map.put("department", rs.getString("department"));
+                map.put("num", rs.getString("num"));
+
+                list.add(map);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     public List<String> getDepsName(){
         String sql = "select department from department";
         List<String> deps = new ArrayList<>();
