@@ -49,7 +49,8 @@
         <div class="content">
             <div class="operation">
                 <button @click="showTfoot()">添加</button>
-                <button class="outputBtn">导出数据</button>
+                <button class="outputBtn" @click="outputData">导出数据</button>
+                <a href="" download="员工信息表.xlsx" id="downloadA"></a>
             </div>
             <div class="myTable">
                 <table class="stafftable">

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/css/myMsg.css">
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/mymsg.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            我的消息
+            <span class="isregist" @click="beRegister" v-text="isRegist"></span>
+        </div>
+        <div class="content">
+            <div class="main" v-for="(item,index) in msgs" @click="showMsg(index)">
+                <div class="titmsg">
+                    <p>{{item.date}} {{item.title}}</p>
+                    <p>{{item.msg}}</p>
+                </div>
+                <div class="status">
+                    <label v-text="item.status == '0'?unRead : read"></label>
+                </div>
+            </div>
+
+            <div class="specificMsg" :class="{hidden:flag == toshow}">
+                <div class="title">
+                    <input type="text" v-model="title" readonly="readonly">
+                </div>
+                <div class="msg">
+                    <textarea v-model="msg" readonly="readonly"></textarea>
+                </div>
+                <button @click="readOver">已阅</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

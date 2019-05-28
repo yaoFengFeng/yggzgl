@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/css/sentMsg.css">
+    <title>发送通知</title>
+    <script src="public/vue.js"></script>
+    <script src="public/axios.js"></script>
+    <script src="public/js/sentMsg.js"></script>
+</head>
+
+<body>
+    <div class="all">
+        <div class="top">
+            发布通知
+        </div>
+        <div class="content">
+            <div class="title">
+                <input type="text" placeholder="输入标题" v-model="title">
+            </div>
+            <div class="msg">
+                <textarea cols="30" rows="10" placeholder="  输入内容....." v-model="msg"></textarea>
+            </div>
+            <div class="sent">
+                <button @click="toSentMsg">发布通知</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

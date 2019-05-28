@@ -27,17 +27,48 @@
                             <th>基本工资</th>
                             <th>奖金</th>
                             <th>工龄工资</th>
+                            <th>操作</th>
                         </thead>
                         <tbody>
                             <tr v-for="(item,index) in alltitles" v-if="item.departmentName == depName">
-                                <td v-text="alltitles[index].title"></td>
-                                <td v-text="alltitles[index].basicSalary"></td>
-                                <td v-text="alltitles[index].bonus"></td>
-                                <td v-text="alltitles[index].basic_years_salary"></td>
+                                <td>
+                                    <input type="text" v-model="alltitles[index].title" readonly="readonly">
+                                </td>
+                                <td>
+                                    <input type="number" v-model="alltitles[index].basicSalary">
+                                </td>
+                                <td>
+                                    <input type="number" v-model="alltitles[index].bonus">
+                                </td>
+                                <td>
+                                    <input type="number" v-model="alltitles[index].basic_years_salary">
+                                </td>
+                                <td>
+                                    <button @click="updateTitle(index)">更新</button>
+                                    <button @click="deleteTitle(index)">删除</button>
+                                </td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <td>
+                                <input type="text" placeholder="输入职称" v-model="inputTitle">
+                            </td>
+                            <td>
+                                <input type="text" placeholder="基本工资" v-model="inputBasic">
+                            </td>
+                            <td>
+                                <input type="text" placeholder="奖金" v-model="inputBonus">
+                            </td>
+                            <td>
+                                <input type="text" placeholder="工龄工资" v-model="inputYearS">
+                            </td>
+                            <td>
+                                <button @click="insertTitle">添加</button>
+                                <button @click="undoinsertTitle">取消</button>
+                            </td>
+                        </tfoot>
                     </table>
-                    <!-- <div class="upRuleBtn"><button @click="upRule">上传标准</button></div> -->
+                    <div class="upRuleBtn"><button @click="upRule">上传标准</button></div>
                 </div>
             </div>
 

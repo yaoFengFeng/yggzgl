@@ -138,6 +138,10 @@ tfoot td input {
     border-color: coral
 }
 
+.rule_table table tr button {
+    height: 25px;
+}
+
 tfoot button {
     background-color: coral
 }
@@ -148,6 +152,11 @@ tfoot button {
 
 .rule_table table tbody {
     max-height: 200px;
+}
+
+.rule_table tbody input {
+    border: none;
+    text-align: center
 }
 
 .depTable table tbody {

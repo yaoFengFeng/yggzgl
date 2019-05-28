@@ -22,8 +22,12 @@
             <p class="chartTitle">各部门工资统计</p>
             <canvas id="canvas2" width="630px;" height="420px"></canvas>
         </div>
-    </div>
 
+        <div class="frame-footer">
+            <div class="copyright">
+                Copyright © 2019 ayf·jpk·jwy </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -66,7 +70,7 @@
             getdepData() {
                 const that = this;
 
-                axios.get("http://localhost:8080/DepartmentServlet").then(function(res) {
+                axios.get("http://localhost:8080/DepartmentServlet?flag=1").then(function(res) {
                     that.deptableData = res.data;
                     console.log(that.deptableData);
                     that.sChart1();

@@ -66,4 +66,16 @@ public class RulesDao {
         }
         return row;
     }
+
+    public int insertDelUpdateRuleBysql(String sql){
+        int row = 0;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            row = pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return row;
+    }
 }

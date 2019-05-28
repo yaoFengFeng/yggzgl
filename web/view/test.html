@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="public/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button class="iconDivIcon targetBtn" :class="isdisabled?btndisabled:''"   style="width:100px;"
+            @click="changeEnables(0)" :disabled="isdisabledFn">
+            禁用</button>  
+
+        <button :disabled="isdisabled">测试</button>
+        <div>    
+
+</body>
+
+</html>
+<script>
+    var app = new Vue({
+
+        el: "#app",
+
+        data: {
+
+            isdisabled:false,
+
+        },
+
+        computed: {
+            isdisabledFn() {
+                if(1+1==2){
+                    this.isdisabled = true;
+                }
+                
+            }
+
+        }
+
+    });

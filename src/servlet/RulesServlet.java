@@ -50,11 +50,19 @@ public class RulesServlet extends HttpServlet {
         RulesDao rulesDao = new RulesDao();
         List<Map<String,String>> list = rulesDao.getRules();
         PrintWriter out = response.getWriter();
-        JSONArray jsonObj = new JSONArray();
-        for (int i = 0; i < list.size(); i++) {
-            jsonObj.add(list.get(i));
+        int flag = Integer.parseInt(request.getParameter("flag"));
+        int row = 0;
+        if (flag == 1){
+            JSONArray jsonObj = new JSONArray();
+            for (int i = 0; i < list.size(); i++) {
+                jsonObj.add(list.get(i));
+            }
+            out.print(jsonObj);
+        }else if (flag == 2){
+            String str = request.getParameter("str");
+            row = rulesDao.insertDelUpdateRuleBysql(str);
+            out.print(row);
         }
-        out.print(jsonObj);
         out.flush();
         out.close();
     }

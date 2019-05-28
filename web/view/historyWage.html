@@ -11,12 +11,14 @@
     <script src="public/vue.js"></script>
     <script src="public/axios.js"></script>
     <script src="public/js/historyWage.js"></script>
+    <script src="public/js/xlsx.full.min.js"></script>
+    <script src="public/js/common.js"></script>
 </head>
 
 <body>
     <div class="all">
         <div class="top">
-            工资管理
+            历史工资
         </div>
         <div class="search">
             <p></p>
@@ -44,6 +46,7 @@
         <div class="content">
             <div class="operation">
                 <button class="getNewTable" @click="outPutWages()">导出工资单</button>
+                <a href="" download="工资表.xlsx" id="downloadA"></a>
             </div>
             <div class="myTable">
                 <table class="wageTable">

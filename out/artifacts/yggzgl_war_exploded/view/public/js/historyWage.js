@@ -79,6 +79,19 @@ window.onload = function() {
                     that.wages = res.data
                     that.computCount();
                 })
+            },
+            outPutWages() {
+                var data = [];
+                var item = {};
+                var th = this.th;
+                for (let i in this.wages) {
+                    item = {};
+                    for (let j in th) {
+                        item[th[j]] = this.wages[i][this.keys[j]];
+                    }
+                    data.push(item);
+                }
+                window.downloadExl(data);
             }
         },
         mounted() {

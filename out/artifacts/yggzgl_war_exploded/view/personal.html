@@ -16,7 +16,7 @@
     <div class="c-content" id="root">
         <div class="left-card">
             <div class="left-content">
-                <p style="margin:auto;width:100px;height:100px;background-color: lightcoral"></p>
+                <div style="text-align: center;"><img src="public/images/boy.png" style="margin: auto;width:100px;height:100px"></div>
                 <p class="left-name" id="left-name">{{tableDataKeys.username}}</p>
                 <p class="left-font">{{tableDataKeys.describes}}</p>
                 <div class="left-information">
@@ -134,7 +134,7 @@
                         <div class="detail-div">
 
                             <div class="buttons">
-                                <button class="" @click="save">
+                                <button :class="" @click="save">
                                     <span>保存</span>
                                 </button>
                                 <button>
@@ -184,6 +184,12 @@
                 titles: "",
             }
 
+        },
+        // 保存按钮 不可点击
+        computed: {
+            isDisabled() {
+
+            }
         },
         methods: {
             //添加标签
@@ -294,7 +300,8 @@
                 } else {
                     this.emailerror = ""
                 }
-            }
+            },
+
         }
     });
     test.getusers();

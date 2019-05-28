@@ -222,6 +222,20 @@ window.onload = function() {
                 axios.post('http://localhost:8080/StaffManageServlet?flag=1&str=' + str).then(function() {
                     that.getusers();
                 });
+            },
+            outputData() {
+                var data = [];
+                var item = {};
+                var th = this.tableDataKeys;
+                for (let i in this.tableData) {
+                    item = {};
+                    for (let j in th) {
+                        item[th[j].val] = this.tableData[i][th[j].key];
+                    }
+                    data.push(item);
+                }
+                // console.log(data);
+                window.downloadExl(data);
             }
         },
         mounted() {

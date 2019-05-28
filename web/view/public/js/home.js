@@ -23,6 +23,9 @@ window.onload = function() {
                     text: '工资管理',
                 }, {
                     icon: '#icon-CRM_icon_dingdan',
+                    text: '安全设置',
+                }, {
+                    icon: '#icon-CRM_icon_dingdan',
                     text: '发布消息',
                 }],
                 [{
@@ -50,6 +53,9 @@ window.onload = function() {
                 }, {
                     icon: '#icon-CRM_icon_wode',
                     text: '个人信息',
+                }, {
+                    icon: '#icon-CRM_icon_wode',
+                    text: '我的消息',
                 }]
             ],
             iframes: [
@@ -60,7 +66,7 @@ window.onload = function() {
                     'view/historyWage.html',
                     'view/manageWage.html',
                     'view/personal.html',
-                    'view/manageStaff.html',
+                    'view/sentMessage.html',
                 ],
                 [
                     'view/formDetails.html',
@@ -69,7 +75,12 @@ window.onload = function() {
                     'view/historyWage.html',
                     'view/manageWage.html'
                 ],
-                ['view/formDetails.html', 'view/myHistoryWage.html', 'view/personal.html']
+                [
+                    'view/formDetails.html',
+                    'view/myHistoryWage.html',
+                    'view/personal.html',
+                    'view/myMsg.html'
+                ]
             ],
             username: "",
             type: 2,

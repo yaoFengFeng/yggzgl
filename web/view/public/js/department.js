@@ -5,12 +5,16 @@ window.onload = function() {
             alltitles: [],
             deptableData: [],
             depIndex: 0,
-            depName: "技术部",
+            depName: "董事局",
             titleIndex: 0,
             upRuleData: [],
             inputDepName: '',
             inputDepPhone: '',
-            num: 0
+            num: 0,
+            inputTitle: '',
+            inputBasic: 0.0,
+            inputBonus: 0.0,
+            inputYearS: 0.0,
         },
         methods: {
             titleChange(e) {
@@ -28,13 +32,13 @@ window.onload = function() {
             },
             getdepData() {
                 const that = this;
-                axios.get("http://localhost:8080/DepartmentServlet?flag=1").then(function(res) {
+                axios.get("/DepartmentServlet?flag=1").then(function(res) {
                     that.deptableData = res.data;
                 })
             },
             getRulesData() {
                 const that = this;
-                axios.get("http://localhost:8080/RulesServlet").then(function(res) {
+                axios.get("/RulesServlet?flag=1").then(function(res) {
                     that.alltitles = res.data;
                 })
             },
@@ -48,8 +52,59 @@ window.onload = function() {
                 var ruledata = JSON.stringify(this.upRuleData);
                 var params = new URLSearchParams(); //处理参数 兼容性不高  可以用babel转换
                 params.append('ruledata', ruledata);
-                axios.post("http://localhost:8080/RulesServlet?", params).then(function() {
+                axios.post("/RulesServlet", params).then(function() {
                     alert('更新成功');
+                })
+            },
+            insertTitle() {
+                var str = "insert into rules(department,title,basic_salary,bonus,basic_years_salary)" +
+                    "values('" + this.depName + "','" + this.inputTitle + "','" + this.inputBasic + "','" + this.inputBonus + "','" + this.inputYearS + "')";
+                const that = this;
+                axios.get("/RulesServlet?flag=2&str=" + str).then(function(res) {
+                    if (res.data) {
+                        that.getRulesData();
+                        that.inputTitle = '';
+                        that.inputBasic = 0;
+                        that.inputBonus = 0;
+                        that.inputYearS = 0;
+                    } else {
+                        alert('网络繁忙')
+                    }
+                })
+            },
+            undoinsertTitle() {
+                this.inputTitle = '';
+                this.inputBasic = 0;
+                this.inputBonus = 0;
+                this.inputYearS = 0;
+            },
+            updateTitle(index) {
+                var basic_salary = this.alltitles[index].basicSalary;
+                var bonus = this.alltitles[index].bonus;
+                var basic_years_salary = this.alltitles[index].basic_years_salary;
+                var title = this.alltitles[index].title;
+                var str = "update rules set basic_salary = " +
+                    basic_salary + " ,bonus=" + bonus + ",basic_years_salary=" + basic_years_salary + " where department = '" + this.depName + "' and title = '" + title + "'";
+                const that = this;
+                axios.get("/RulesServlet?flag=2&str=" + str).then(function(res) {
+                    if (res.data) {
+                        that.getRulesData();
+                    } else {
+                        alert('网络繁忙')
+                    }
+                })
+            },
+            deleteTitle(index) {
+                var title = this.alltitles[index].title;
+                var str = "delete from rules where department = '" + this.depName + "' and title = '" + title + "'";
+                const that = this;
+                console.log(str);
+                axios.get("/RulesServlet?flag=2&str=" + str).then(function(res) {
+                    if (res.data) {
+                        that.getRulesData();
+                    } else {
+                        alert('网络繁忙')
+                    }
                 })
             },
             insertDep() {
