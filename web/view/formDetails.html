@@ -36,10 +36,10 @@
         el: "#all",
         data: {
             // datas : [
-            // {department:'董事局', num:12},
-            // {department:'技术部', num:12},
-            // {department:'财务部', num:10},
-            // {department:'人事部', num:20},
+            // {Department:'董事局', num:12},
+            // {Department:'技术部', num:12},
+            // {Department:'财务部', num:10},
+            // {Department:'人事部', num:20},
             // ],
             datas: [],
             deptableData: [],
@@ -69,13 +69,8 @@
             },
             getdepData() {
                 const that = this;
-<<<<<<< HEAD
 
-                axios.get("http://localhost:8080/DepartmentServlet?flag=1").then(function(res) {
-=======
-                
                 axios.get("http://localhost:8080/DepartmentServlet?flag=4").then(function(res) {
->>>>>>> 3c05effaee66f63f8cf1eb9de254478bea28f4f2
                     that.deptableData = res.data;
                     console.log(that.deptableData);
                     that.sChart1();

@@ -45,7 +45,6 @@ public class DepartmentDao {
             Map<String, String> map;
             while (rs.next()) {
                 map = new HashMap<>();
-
                 map.put("department", rs.getString("department"));
                 map.put("num", rs.getString("num"));
 
@@ -96,8 +95,20 @@ public class DepartmentDao {
         return  row;
     }
 
-    //删除部门时 删除该部门所有员工
-//    public void deleteUser(){
-//
-//    }
+    public void updateNum(int type,String depName){
+        String sql2;
+        if (type == 0){ //删除一个员工 更新num -1
+             sql2 = "update department set num = num - 1 where department = '"+depName+"'";
+        }else{
+             sql2 = "update department set num = num + 1 where department = '"+depName+"'";
+        }
+        try {
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.executeUpdate();
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

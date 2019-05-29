@@ -2,7 +2,7 @@ window.onload = function() {
     new Vue({
         el: ".all",
         data: {
-            years: [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043],
+            years: [2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043],
             mouths: ['所有月份', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
             year: '2019',
             mouth: '所有月份',
@@ -19,16 +19,17 @@ window.onload = function() {
             depChange() {
                 var e = e || window.event;
                 this.selDep = e.target.value;
-                var str = "select * from all_wage where department = '" + this.selDep + "'";
-                const that = this;
-                axios.get("/WageServlet?flag=6&str=" + str).then(function(res) {
-                    that.wages = res.data;
-                    that.computCount();
-                })
+                this.updateTable();
             },
             yearChange() {
                 var e = e || window.event;
                 this.year = e.target.value;
+                this.updateTable();
+            },
+            dateChange() {
+                var e = e || window.event;
+                this.mouth = e.target.value;
+                this.updateTable();
             },
             //计算总工资
             computCount() {
@@ -38,20 +39,20 @@ window.onload = function() {
                     this.count += wages[i].count * 1; //*1是为了将string转化为 int
                 }
             },
-            dateChange() {
-                var e = e || window.event;
-                this.mouth = e.target.value;
+            updateTable() {
                 var str = "";
                 // 此处有巨坑 url传参 % 需要将其转义为它的编码格式 %25
                 if (this.mouth == '所有月份' && this.selDep == '--所有部门--') {
                     str = "select * from all_wage where date like '%25" + this.year + "%25'";
                 } else if (this.mouth != '所有月份' && this.selDep == '--所有部门--') {
+                    this.mouth *= 1;
                     this.mouth = this.mouth < 10 ? '0' + this.mouth : this.mouth;
                     let ym = this.year + "-" + this.mouth;
                     str = "select * from all_wage where date = '" + ym + "'";
                 } else if (this.mouth == '所有月份' && this.selDep != '--所有部门--') {
                     str = "select * from all_wage where date like '%25" + this.year + "%25' and department = '" + this.selDep + "'";
                 } else {
+                    this.mouth *= 1;
                     this.mouth = this.mouth < 10 ? '0' + this.mouth : this.mouth;
                     let ym = this.year + "-" + this.mouth;
                     str = "select * from all_wage where date = '" + ym + "' and department = '" + this.selDep + "'";

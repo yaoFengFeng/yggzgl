@@ -1,8 +1,8 @@
 package entity;
 
-public class department {
+public class Department {
     private String department,phone;
-    private int id,num;
+    private int id,num =0;
 
     public String getDepartment() {
         return department;

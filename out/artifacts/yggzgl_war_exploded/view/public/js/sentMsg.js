@@ -2,8 +2,8 @@ window.onload = function() {
     new Vue({
         el: ".all",
         data: {
-            title: "输入标题",
-            msg: "输入内容....."
+            title: "",
+            msg: ""
         },
         methods: {
             toSentMsg() {

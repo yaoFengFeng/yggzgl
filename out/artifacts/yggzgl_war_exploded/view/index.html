@@ -22,8 +22,8 @@
         </div>
         <div class="login_form">
             <div class="user">
-                <input class="text_value" value="" name="username" type="text" id="username" placeholder="工号" v-model="id">
-                <input class="text_value" value="" name="password" type="password" id="password" placeholder="密码" v-model="password">
+                <input class="text_value" value="" name="username" type="text" id="username" placeholder="工号" v-model="id" @keyup.enter="toLogin">
+                <input class="text_value" value="" name="password" type="password" id="password" placeholder="密码" v-model="password" @keyup.enter="toLogin">
             </div>
             <button class="button" id="submit" type="submit" @click="toLogin()">登录</button>
         </div>

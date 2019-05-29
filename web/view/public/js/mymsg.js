@@ -32,11 +32,11 @@ window.onload = function() {
                 console.log(this.regist);
                 this.isRegist = this.regist ? "不接收通知" : "去接收通知";
                 if (this.regist) {
-                    axios.get("/RegisterServlet?flag=3").then(function(res) {
+                    axios.get("/RegisterServlet?flag=4").then(function(res) {
                         res.data ? alert('已订阅通知') : alert('网络繁忙')
                     })
                 } else {
-                    axios.get("/RegisterServlet?flag=4").then(function(res) {
+                    axios.get("/RegisterServlet?flag=3").then(function(res) {
                         res.data ? alert('取消通知') : alert('网络繁忙')
                     })
                 }

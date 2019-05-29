@@ -1,5 +1,6 @@
 package servlet;
 
+import dao.DepartmentDao;
 import dao.RulesDao;
 import dao.UserDao;
 import entity.Rules;

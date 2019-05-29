@@ -1,10 +1,7 @@
 package servlet;
 
 import dao.DepartmentDao;
-import dao.RulesDao;
-import entity.Rules;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

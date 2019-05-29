@@ -1,6 +1,7 @@
 package dao;
 
 
+import entity.Department;
 import entity.User;
 import servlet.MySQLConnection;
 
@@ -49,7 +50,6 @@ public class UserDao {
 
         public int insertOrdeleteUser(String sql){
             int row = 0;
-            System.out.println(sql);
             try {
                 pstmt = conn.prepareStatement(sql);
                 row  = pstmt.executeUpdate();
@@ -62,6 +62,8 @@ public class UserDao {
 
         public int insertUsers(List<User> userList){
             int size = userList.size();
+            List<Department> departments = new ArrayList<>();
+            Department department;
             User user;
             String sql;
             int row = 0;
@@ -92,6 +94,44 @@ public class UserDao {
                    pstmt.setObject(10,pV10);
                    row  += pstmt.executeUpdate();
                    conn.commit(); // 提交事务 没有这句话 不报错但就是不给你插入
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                //需要取出插入员工中 相应部门当前插入员工的数量  以便更新部门表人员数量
+                if (departments.size()!=0){  //判断list是否为空 是空的话直接add depment
+                    boolean hasDep = false;
+                    for (int j = 0;j<departments.size();j++){  //不为空 需要遍历list将 当前要插入到员工信息表中的dep 员工数量+1
+                        department = departments.get(j);
+                        if (department.getDepartment().equals(pV6) ){
+                            int count = department.getNum();
+                            count++;
+                            department.setNum(count);
+                            hasDep = true;
+                            break;
+                        }
+                    }
+                    if (!hasDep){
+                        department = new Department();
+                        department.setDepartment(pV6);
+                        department.setNum(1);
+                        departments.add(department);
+                    }
+                }else{
+                    department = new Department();
+                    department.setDepartment(pV6);
+                    department.setNum(1);
+                    departments.add(department);
+                }
+            }
+            for (int i =0;i<departments.size();i++){
+                department = departments.get(i);
+                int num = department.getNum();
+                String depName = department.getDepartment();
+                sql = "update department set num = num + "+num +" where department = '"+depName+"'";
+                try {
+                    pstmt=conn.prepareStatement(sql);
+                    pstmt.executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

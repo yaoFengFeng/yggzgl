@@ -62,10 +62,10 @@ public class WageServlet extends HttpServlet {
                 RulesDao rulesDao= new RulesDao();
                 List<Wage> listWages = new ArrayList<>();
                 List<Map<String,String>> listRules = rulesDao.getRules(); //获取所有工资标准
-                List<User> listUsers = wageDao.getAllUsers();  //获取当前所有员工 有工资条中需要的信息
+                List<User> listUsers = wageDao.getAllUsers();  //获取当前所有员工 在工资条中需要的信息
                 int size = listUsers.size();
                 int ruleSize = listRules.size();
-                int row;
+                int row =0;
                 Wage wage;
                 Map<String,String> map;
                 String dep = "departmentName";
@@ -113,7 +113,7 @@ public class WageServlet extends HttpServlet {
                 out.print(row);
                 break;
             case 2:
-                list = wageDao.getNewWages();
+                list = wageDao.getNewWages(); //获取当月工资单
                 jsonObj = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {
                     jsonObj.add(list.get(i));
@@ -121,7 +121,7 @@ public class WageServlet extends HttpServlet {
                 out.print(jsonObj);
                 break;
             case 3:
-                list = wageDao.getHistoryWages();
+                list = wageDao.getHistoryWages(); //获取历史工资
                 jsonObj = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {
                     jsonObj.add(list.get(i));
@@ -129,7 +129,7 @@ public class WageServlet extends HttpServlet {
                 out.print(jsonObj);
                 break;
             case 4:
-                list = wageDao.getAllWages();
+                list = wageDao.getAllWages(); //获取各部门当月总工资
                 jsonObj = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {
                     jsonObj.add(list.get(i));
@@ -137,7 +137,7 @@ public class WageServlet extends HttpServlet {
                 out.print(jsonObj);
                 break;
             case 5:
-                row = wageDao.insertToAllWages();
+                row = wageDao.insertToAllWages();  //确定所有工资 插入到历史工资表中
                 out.print(row);
                 break;
             case 6:
@@ -154,7 +154,6 @@ public class WageServlet extends HttpServlet {
                 HttpSession session =  request.getSession();
                 String id = session.getAttribute("id").toString();
                 sql = "select * from all_wage where user_id = '"+id+"'"+ s;
-                System.out.println(sql);
                 list = wageDao.getWageBySQL(sql);
                 jsonObj = new JSONArray();
                 for (int i = 0; i < list.size(); i++) {

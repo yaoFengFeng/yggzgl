@@ -12,10 +12,10 @@ window.onload = function() {
             makeWageData() {
                 const that = this;
                 var ym = this.getDate();
-                if (ym != this.wages[0].date) {
+                if (!this.wages[0] || ym != this.wages[0].date) {
                     axios.get("/WageServlet?flag=1").then(function(res) {
                         if (res.data <= 0) {
-                            alert("请确保所有员工职位存在")
+                            alert("请确保所有员工职位已在工资标准中定义")
                         } else {
                             that.getNewWages();
                         }

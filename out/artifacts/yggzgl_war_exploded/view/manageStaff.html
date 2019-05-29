@@ -80,9 +80,9 @@
                     <tfoot v-if="isShowTfoot">
                         <tr>
                             <td v-for="(data,i) in tableDataKeys" v-if="data.val == '部门'">
-                                <select v-model="insertDatas[data.key]">
+                                <select @change="insertDepChange">
                                     <option value=""></option>
-                                    <option v-for="(items,index) in options" v-if="index > 0" v-text="items.text">
+                                    <option v-for="(items,index) in options"  v-text="items">
 
                                     </option>
                                 </select>
@@ -90,7 +90,7 @@
 
                             <td v-else-if="data.val == '职位'">
                                 <select v-model="insertDatas[data.key]">
-                                    <option v-for="(items,index) in titles" v-text="items.text">
+                                    <option v-for="(items,index) in depsAndTitles" v-if="items.departmentName == insertDatas.department" v-text="items.title">
                                     </option>
                                 </select>
                             </td>
