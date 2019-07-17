@@ -151,26 +151,21 @@
                     </div>
                 </div>
                 <div class="right-detail" v-if="!temp">
-
                     <div class="detail-div">
                         <label>新的密码</label>
                         <input type="password" v-model="tablePassword.fNewPwd" maxlength="20">
                     </div>
-
-
-
                     <div class="detail-div">
 
                         <label>确认密码</label>
                         <input type="password" v-model="tablePassword.sNewPwd" ref="secondPwd" maxlength="20">
                         <span class="password-error" ref="pwderror">
-                                        {{pwderror}}
-                                </span>
+                                {{pwderror}}
+                        </span>
 
                     </div>
 
                     <div class="detail-div">
-
                         <div class="buttons">
                             <button :class="" ref="buttonStyle" @click="setPwd" :disabled="isDisabled">
                                     <span>保存</span>
